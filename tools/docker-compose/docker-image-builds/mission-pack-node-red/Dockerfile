@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     librsvg2-dev \
     pkg-config \
     ffmpeg \
+    fswebcam \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 

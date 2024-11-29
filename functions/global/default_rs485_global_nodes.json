@@ -1,4 +1,5 @@
-[{
+[
+  {
     "id": "ff55020100020001",
     "type": "modbus-client",
     "name": "Default RS485 Channel 1",
@@ -10,7 +11,7 @@
     "tcpHost": "127.0.0.1",
     "tcpPort": "502",
     "tcpType": "DEFAULT",
-    "serialPort": "/dev/ttyAMA30",
+    "serialPort": "/dev/ttyAMA2",
     "serialType": "RTU",
     "serialBaudrate": "9600",
     "serialDatabits": "8",
@@ -27,8 +28,8 @@
     "showErrors": false,
     "showWarnings": true,
     "showLogs": true
-},
-{
+  },
+  {
     "id": "ff55020100020002",
     "type": "modbus-client",
     "name": "Default RS485 Channel 2",
@@ -40,7 +41,7 @@
     "tcpHost": "127.0.0.1",
     "tcpPort": "502",
     "tcpType": "DEFAULT",
-    "serialPort": "/dev/ttyAMA31",
+    "serialPort": "/dev/ttyAMA3",
     "serialType": "RTU",
     "serialBaudrate": "9600",
     "serialDatabits": "8",
@@ -57,8 +58,8 @@
     "showErrors": false,
     "showWarnings": true,
     "showLogs": true
-},
-{
+  },
+  {
     "id": "ff55020100020003",
     "type": "modbus-client",
     "name": "Default RS485 Channel 3",
@@ -70,7 +71,7 @@
     "tcpHost": "127.0.0.1",
     "tcpPort": "502",
     "tcpType": "DEFAULT",
-    "serialPort": "/dev/ttyAMA32",
+    "serialPort": "/dev/ttyAMA4",
     "serialType": "RTU",
     "serialBaudrate": "9600",
     "serialDatabits": "8",
@@ -87,4 +88,5 @@
     "showErrors": false,
     "showWarnings": true,
     "showLogs": true
-}]
+  }
+]

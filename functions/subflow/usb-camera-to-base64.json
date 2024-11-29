@@ -1,0 +1,137 @@
+[
+  {
+    "id": "f313f696247a6001",
+    "type": "subflow",
+    "name": "usb camera to base64",
+    "info": "",
+    "category": "",
+    "in": [],
+    "out": [
+      {
+        "x": 1160,
+        "y": 460,
+        "wires": [
+          {
+            "id": "a62af704b6f1d352",
+            "port": 0
+          }
+        ]
+      }
+    ],
+    "env": [],
+    "meta": {},
+    "color": "#DDAA99"
+  },
+  {
+    "id": "b87d4624830be319",
+    "type": "usbcamera",
+    "z": "f313f696247a6001",
+    "filemode": "1",
+    "filename": "image01.jpg",
+    "filedefpath": "1",
+    "filepath": "",
+    "fileformat": "jpeg",
+    "resolution": "1",
+    "name": "",
+    "x": 650,
+    "y": 340,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "52683f30d0b29506",
+    "type": "inject",
+    "z": "f313f696247a6001",
+    "name": "Init Usb Camera",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 440,
+    "y": 340,
+    "wires": [
+      [
+        "b87d4624830be319"
+      ]
+    ]
+  },
+  {
+    "id": "331c73ffce0b9d05",
+    "type": "inject",
+    "z": "f313f696247a6001",
+    "name": "Loop Output",
+    "props": [
+      {
+        "p": "payload"
+      },
+      {
+        "p": "topic",
+        "vt": "str"
+      }
+    ],
+    "repeat": "0.2",
+    "crontab": "",
+    "once": true,
+    "onceDelay": 0.1,
+    "topic": "",
+    "payload": "",
+    "payloadType": "date",
+    "x": 440,
+    "y": 460,
+    "wires": [
+      [
+        "d9f4abdfdcafb071"
+      ]
+    ]
+  },
+  {
+    "id": "d9f4abdfdcafb071",
+    "type": "usbcamera",
+    "z": "f313f696247a6001",
+    "filemode": "0",
+    "filename": "image01.jpg",
+    "filedefpath": "1",
+    "filepath": "",
+    "fileformat": "jpeg",
+    "resolution": "1",
+    "name": "",
+    "x": 650,
+    "y": 460,
+    "wires": [
+      [
+        "a62af704b6f1d352"
+      ]
+    ]
+  },
+  {
+    "id": "a62af704b6f1d352",
+    "type": "function",
+    "z": "f313f696247a6001",
+    "name": "usb camera stream to base64",
+    "func": "msg.payload = msg.payload.toString('base64');\nreturn msg",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 910,
+    "y": 460,
+    "wires": [
+      []
+    ]
+  }
+]

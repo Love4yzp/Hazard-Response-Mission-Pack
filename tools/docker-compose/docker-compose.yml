@@ -2,7 +2,7 @@ name: sensecraft
 
 services:
   sensecraft-nodered:
-    build: 
+    build:
       context: ./docker-image-builds/mission-pack-node-red/
       dockerfile: ./Dockerfile
     image: sensecraft/mission-pack-node-red:1.0
@@ -24,7 +24,7 @@ services:
       - sensecraft-nodered-eventbus
       - sensecraft-devices-mqtt-broker
       - sensecraft-pysscma-server
-      - sensecraft-rs485-de
+#      - sensecraft-rs485-de
     networks:
       - sensecraft_network
     extra_hosts:
@@ -41,7 +41,7 @@ services:
         max-file: "1"
 
   sensecraft-nodered-filemanager:
-    build: 
+    build:
       context: ./docker-image-builds/mission-pack-nodered-filemanager/
       dockerfile: ./Dockerfile
     image: sensecraft/mission-pack-nodered-filemanager:1.0
@@ -74,7 +74,7 @@ services:
         max-file: "1"
 
   sensecraft-nodered-static-file-server:
-    build: 
+    build:
       context: ./docker-image-builds/mission-pack-nodered-static-file-server/
       dockerfile: ./Dockerfile
     image: sensecraft/mission-pack-nodered-static-file-server:1.0
@@ -104,7 +104,7 @@ services:
 
   # only for node-red internal eventbus, with qos0 mqtt message
   sensecraft-nodered-eventbus:
-    build: 
+    build:
       context: ./docker-image-builds/mission-pack-nodered-eventbus/
       dockerfile: ./Dockerfile
     image: sensecraft/mission-pack-nodered-eventbus:1.0
@@ -127,7 +127,7 @@ services:
         max-file: "1"
 
   sensecraft-devices-mqtt-broker:
-    build: 
+    build:
       context: ./docker-image-builds/mission-pack-devices-mqtt-broker/
       dockerfile: ./Dockerfile
     image: sensecraft/mission-pack-devices-mqtt-broker:1.0
@@ -152,9 +152,9 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-  
+
   sensecraft-pysscma-server:
-    build: 
+    build:
       context: ./docker-image-builds/mission-pack-pysscma-server/
       dockerfile: ./Dockerfile
     image: sensecraft/mission-pack-pysscma-server:1.0
@@ -164,7 +164,7 @@ services:
     privileged: true
     networks:
       - sensecraft_network
-    ports: 
+    ports:
       - 8000:8000
     logging:
       driver: "json-file"
@@ -172,26 +172,26 @@ services:
         max-size: "10m"
         max-file: "1"
 
-  sensecraft-rs485-de:
-    build: 
-      context: ./docker-image-builds/mission-pack-rs485-de/
-      dockerfile: ./Dockerfile
-    image: sensecraft/mission-pack-rs485-de:1.0
-    container_name: sensecraft-rs485-de
-    restart: always
-    privileged: true
-    networks:
-      - sensecraft_network
-    volumes:
-      - /dev:/dev
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "1"
+#  sensecraft-rs485-de:
+  #    build:
+  #      context: ./docker-image-builds/mission-pack-rs485-de/
+  #      dockerfile: ./Dockerfile
+  #    image: sensecraft/mission-pack-rs485-de:1.0
+  #    container_name: sensecraft-rs485-de
+  #    restart: always
+  #    privileged: true
+  #    networks:
+  #      - sensecraft_network
+  #    volumes:
+  #      - /dev:/dev
+  #    logging:
+  #      driver: "json-file"
+  #      options:
+  #        max-size: "10m"
+  #        max-file: "1"
 
   sensecraft-media-server:
-    build: 
+    build:
       context: ./docker-image-builds/mission-pack-media-server/
       dockerfile: ./Dockerfile
     image: sensecraft/mission-pack-media-server:1.0

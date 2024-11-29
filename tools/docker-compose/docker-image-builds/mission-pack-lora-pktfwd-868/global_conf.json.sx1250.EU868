@@ -1,7 +1,7 @@
 {
     "SX130x_conf": {
         "com_type": "SPI",
-        "com_path": "/dev/spidev0.1",
+        "com_path": "/dev/spidev1.1",
         "lorawan_public": true,
         "clksrc": 0,
         "antenna_gain": 0, /* antenna gain, in dBi */
@@ -104,8 +104,8 @@
         "forward_crc_disabled": false,
         /* GPS configuration */
         // "gps_tty_path": "/dev/ttyS0",
-	
-        //disable gps and enable fake	
+
+        //disable gps and enable fake
         "gps_tty_path": "",
         "fake_gps": true,
 
