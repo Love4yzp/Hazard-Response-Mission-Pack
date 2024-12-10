@@ -1,18 +1,109 @@
 [
     {
-        "id": "f11a6acbc82d2c5c",
+        "id": "403fd0931430b1ba",
+        "type": "group",
+        "z": "0c809b82525ab765",
+        "name": "",
+        "style": {
+            "label": true,
+            "color": "#000000",
+            "fill": "#dbcbe7"
+        },
+        "nodes": [
+            "995c84e705c42f95",
+            "4d962a89b81eb87a",
+            "f8e3221e1e80cbfe",
+            "645dfed0a903142d",
+            "25731624943ab460",
+            "01dc38762911d137",
+            "551908b4f634e351",
+            "9db4c2e9d0a9ec58",
+            "1aac4cfab3c1a16f",
+            "2daa1918dc47a50f"
+        ],
+        "x": 14,
+        "y": 859,
+        "w": 692,
+        "h": 502
+    },
+    {
+        "id": "e0d523198c47fac8",
         "type": "subflow",
-        "name": "7in1 weather station",
+        "name": "SenseCAP Weather Station",
         "info": "",
-        "category": "※sensecap-weather-station",
+        "category": "※data-logger-ultrasonic",
         "in": [],
         "out": [
             {
-                "x": 1220,
-                "y": 200,
+                "x": 1630,
+                "y": 360,
                 "wires": [
                     {
-                        "id": "9c84a20fd70247b6",
+                        "id": "4a6bb66a194ebecb",
+                        "port": 0
+                    },
+                    {
+                        "id": "e759cd06d6462147",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 1640,
+                "y": 420,
+                "wires": [
+                    {
+                        "id": "12034743fd18f247",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 1640,
+                "y": 480,
+                "wires": [
+                    {
+                        "id": "69b736acae768564",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 1650,
+                "y": 540,
+                "wires": [
+                    {
+                        "id": "60c6293cefc32372",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 1660,
+                "y": 600,
+                "wires": [
+                    {
+                        "id": "2b54b71d87217e81",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 1660,
+                "y": 660,
+                "wires": [
+                    {
+                        "id": "dc27caa488da7adb",
+                        "port": 0
+                    }
+                ]
+            },
+            {
+                "x": 1620,
+                "y": 720,
+                "wires": [
+                    {
+                        "id": "8e6dc46df7dc6d25",
                         "port": 0
                     }
                 ]
@@ -20,7 +111,15 @@
         ],
         "env": [
             {
-                "name": "mqtt-broker",
+                "name": "----- Device Connection -----",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "type": "none"
+                }
+            },
+            {
+                "name": "mqttBroker",
                 "type": "mqtt-broker",
                 "value": "ff55020100010001",
                 "ui": {
@@ -33,622 +132,178 @@
                 }
             },
             {
-                "name": "Title - Select data to output",
+                "name": "applicationId",
                 "type": "str",
-                "value": "",
+                "value": "447ecfe1-6d26-4e82-bf28-d6dba2fb0d36",
                 "ui": {
+                    "icon": "font-awesome/fa-align-justify",
                     "label": {
-                        "zh-CN": "Select data to output:",
-                        "en-US": "Select data to output:"
+                        "zh-CN": "*AppId",
+                        "en-US": "*AppId"
                     },
-                    "type": "none"
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str",
+                            "env"
+                        ]
+                    }
                 }
             },
             {
-                "name": "temperature",
-                "type": "bool",
-                "value": "true",
+                "name": "deviceId",
+                "type": "str",
+                "value": "2cf7f1c0446001bf",
                 "ui": {
+                    "icon": "font-awesome/fa-align-justify",
                     "label": {
-                        "zh-CN": "Temperature",
-                        "en-US": "Temperature"
+                        "zh-CN": "*EUI",
+                        "en-US": "*EUI"
                     },
-                    "type": "checkbox"
-                }
-            },
-            {
-                "name": "humidity",
-                "type": "bool",
-                "value": "true",
-                "ui": {
-                    "label": {
-                        "zh-CN": "Humidity",
-                        "en-US": "Humidity"
-                    },
-                    "type": "checkbox"
-                }
-            },
-            {
-                "name": "windSpeed",
-                "type": "bool",
-                "value": "true",
-                "ui": {
-                    "label": {
-                        "zh-CN": "Wind Speed",
-                        "en-US": "Wind Speed"
-                    },
-                    "type": "checkbox"
-                }
-            },
-            {
-                "name": "precipitation",
-                "type": "bool",
-                "value": "true",
-                "ui": {
-                    "label": {
-                        "zh-CN": "Precipitation",
-                        "en-US": "Precipitation"
-                    },
-                    "type": "checkbox"
-                }
-            },
-            {
-                "name": "vegetationDensity",
-                "type": "bool",
-                "value": "true",
-                "ui": {
-                    "label": {
-                        "zh-CN": "Vegetation Density",
-                        "en-US": "Vegetation Density"
-                    },
-                    "type": "checkbox"
-                }
-            },
-            {
-                "name": "fuelMoisture",
-                "type": "bool",
-                "value": "true",
-                "ui": {
-                    "label": {
-                        "zh-CN": "Fuel Moisture",
-                        "en-US": "Fuel Moisture"
-                    },
-                    "type": "checkbox"
-                }
-            },
-            {
-                "name": "soilMoisture",
-                "type": "bool",
-                "value": "true",
-                "ui": {
-                    "label": {
-                        "zh-CN": "Soil Moisture",
-                        "en-US": "Soil Moisture"
-                    },
-                    "type": "checkbox"
-                }
-            },
-            {
-                "name": "fireRisk",
-                "type": "bool",
-                "value": "true",
-                "ui": {
-                    "label": {
-                        "zh-CN": "Fire Risk",
-                        "en-US": "Fire Risk"
-                    },
-                    "type": "checkbox"
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str",
+                            "env"
+                        ]
+                    }
                 }
             }
         ],
         "meta": {},
         "color": "#B8EA4F",
+        "outputLabels": [
+            "temp",
+            "humidity",
+            "pressure",
+            "Wind Speed",
+            "Wind Direction",
+            "Light Intensity",
+            "rain"
+        ],
+        "icon": "node-red/node_icon_s2100.png",
         "status": {
-            "x": 1220,
-            "y": 360,
-            "wires": []
+            "x": 1660,
+            "y": 180,
+            "wires": [
+                {
+                    "id": "bf8cf61d9a1c87e9",
+                    "port": 0
+                },
+                {
+                    "id": "b4cae0a3a27b6aa9",
+                    "port": 0
+                }
+            ]
         }
     },
     {
-        "id": "8e4db328f42c4974",
-        "type": "function",
-        "z": "f11a6acbc82d2c5c",
-        "name": "7-in-1 weather station",
-        "func": "var temperature = {\n    payload: Math.random() * 40,\n    topic: \"temperature\"\n};\n\nvar humidity = {\n    payload: Math.random() * 100,\n    topic: \"humidity\"\n};\n\nvar windSpeed = {\n    payload: Math.random() * 20,\n    topic: \"windSpeed\"\n};\n\nvar precipitation = {\n    payload: Math.random() * 50,\n    topic: \"precipitation\"\n};\n\nvar vegetationDensity = {\n    payload: Math.random() * 100,\n    topic: \"vegetationDensity\"\n};\n\nvar fuelMoisture = {\n    payload: Math.random() * 100,\n    topic: \"fuelMoisture\"\n};\n\nvar soilMoisture = {\n    payload: Math.random() * 100,\n    topic: \"soilMoisture\"\n};\n\nvar total = {\n    payload: {\n        temperature: temperature.payload,\n        humidity: humidity.payload,\n        windSpeed: windSpeed.payload,\n        precipitation: precipitation.payload,\n        vegetationDensity: vegetationDensity.payload,\n        fuelMoisture: fuelMoisture.payload,\n        soilMoisture: soilMoisture.payload\n    },\n    topic: \"total\"\n};\n\nreturn [temperature, humidity, windSpeed, precipitation, vegetationDensity, fuelMoisture, soilMoisture, total];\n",
-        "outputs": 8,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 360,
-        "y": 120,
-        "wires": [
-            [
-                "d13ad91ac508db4c"
-            ],
-            [
-                "772715fb0b63dd2a"
-            ],
-            [
-                "7e23227f9b76321f"
-            ],
-            [
-                "55b9f3c6aa5baa15"
-            ],
-            [
-                "6fcd9713b7a0c408"
-            ],
-            [
-                "16cac78624bc6e83"
-            ],
-            [
-                "20cd1089729f666f"
-            ],
-            [
-                "c2437ef708dab502"
-            ]
-        ]
-    },
-    {
-        "id": "c7d6a465aad48164",
-        "type": "inject",
-        "z": "f11a6acbc82d2c5c",
-        "name": "onstartup",
-        "props": [
-            {
-                "p": "payload"
-            },
-            {
-                "p": "topic",
-                "vt": "str"
-            }
-        ],
-        "repeat": "5",
-        "crontab": "",
-        "once": true,
-        "onceDelay": "0",
+        "id": "4ed1a424454e047f",
+        "type": "mqtt in",
+        "z": "e0d523198c47fac8",
+        "name": "subscribe mqtt, and receive message",
         "topic": "",
-        "payload": "",
-        "payloadType": "date",
-        "x": 150,
-        "y": 120,
-        "wires": [
-            [
-                "8e4db328f42c4974"
-            ]
-        ]
-    },
-    {
-        "id": "d13ad91ac508db4c",
-        "type": "switch",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
-        "property": "temperature",
-        "propertyType": "env",
-        "rules": [
-            {
-                "t": "true"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 610,
+        "qos": "0",
+        "datatype": "auto-detect",
+        "broker": "${mqttBroker}",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 1,
+        "x": 690,
         "y": 80,
         "wires": [
             [
-                "3a6ab4a46c5c856e"
+                "9369152b78be0fd8",
+                "609a0d5ccc3483ea"
             ]
         ]
     },
     {
-        "id": "772715fb0b63dd2a",
-        "type": "switch",
-        "z": "f11a6acbc82d2c5c",
+        "id": "bf8cf61d9a1c87e9",
+        "type": "status",
+        "z": "e0d523198c47fac8",
         "name": "",
-        "property": "humidity",
-        "propertyType": "env",
-        "rules": [
-            {
-                "t": "true"
-            }
+        "scope": [
+            "4ed1a424454e047f"
         ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 610,
-        "y": 120,
-        "wires": [
-            [
-                "6b6a9690a8786b72"
-            ]
-        ]
-    },
-    {
-        "id": "7e23227f9b76321f",
-        "type": "switch",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
-        "property": "windSpeed",
-        "propertyType": "env",
-        "rules": [
-            {
-                "t": "true"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 610,
-        "y": 160,
-        "wires": [
-            [
-                "c72f1d53fa0877e1"
-            ]
-        ]
-    },
-    {
-        "id": "55b9f3c6aa5baa15",
-        "type": "switch",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
-        "property": "precipitation",
-        "propertyType": "env",
-        "rules": [
-            {
-                "t": "true"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 610,
-        "y": 200,
-        "wires": [
-            [
-                "833587c680aa5057"
-            ]
-        ]
-    },
-    {
-        "id": "6fcd9713b7a0c408",
-        "type": "switch",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
-        "property": "vegetationDensity",
-        "propertyType": "env",
-        "rules": [
-            {
-                "t": "true"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 610,
+        "x": 1560,
         "y": 240,
-        "wires": [
-            [
-                "bc4740acb653759e"
-            ]
-        ]
-    },
-    {
-        "id": "16cac78624bc6e83",
-        "type": "switch",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
-        "property": "fuelMoisture",
-        "propertyType": "env",
-        "rules": [
-            {
-                "t": "true"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 610,
-        "y": 280,
-        "wires": [
-            [
-                "342c90344efb042a"
-            ]
-        ]
-    },
-    {
-        "id": "20cd1089729f666f",
-        "type": "switch",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
-        "property": "soilMoisture",
-        "propertyType": "env",
-        "rules": [
-            {
-                "t": "true"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
-        "outputs": 1,
-        "x": 610,
-        "y": 320,
-        "wires": [
-            [
-                "f43224200031aa54"
-            ]
-        ]
-    },
-    {
-        "id": "3a6ab4a46c5c856e",
-        "type": "change",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "temperature",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 780,
-        "y": 80,
-        "wires": [
-            [
-                "9c84a20fd70247b6"
-            ]
-        ]
-    },
-    {
-        "id": "6b6a9690a8786b72",
-        "type": "change",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "humidity",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 780,
-        "y": 120,
-        "wires": [
-            [
-                "9c84a20fd70247b6"
-            ]
-        ]
-    },
-    {
-        "id": "c72f1d53fa0877e1",
-        "type": "change",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "windSpeed",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 780,
-        "y": 160,
-        "wires": [
-            [
-                "9c84a20fd70247b6"
-            ]
-        ]
-    },
-    {
-        "id": "833587c680aa5057",
-        "type": "change",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "precipitation",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 780,
-        "y": 200,
-        "wires": [
-            [
-                "9c84a20fd70247b6"
-            ]
-        ]
-    },
-    {
-        "id": "bc4740acb653759e",
-        "type": "change",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "vegetationDensity",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 780,
-        "y": 240,
-        "wires": [
-            [
-                "9c84a20fd70247b6"
-            ]
-        ]
-    },
-    {
-        "id": "342c90344efb042a",
-        "type": "change",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "fuelMoisture",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 780,
-        "y": 280,
-        "wires": [
-            [
-                "9c84a20fd70247b6"
-            ]
-        ]
-    },
-    {
-        "id": "f43224200031aa54",
-        "type": "change",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
-        "rules": [
-            {
-                "t": "set",
-                "p": "topic",
-                "pt": "msg",
-                "to": "soilMoisture",
-                "tot": "str"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 780,
-        "y": 320,
-        "wires": [
-            [
-                "9c84a20fd70247b6"
-            ]
-        ]
-    },
-    {
-        "id": "9c84a20fd70247b6",
-        "type": "change",
-        "z": "f11a6acbc82d2c5c",
-        "name": "to 2 decimal places",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "$round(payload * 100) / 100",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 1050,
-        "y": 200,
         "wires": [
             []
         ]
     },
     {
-        "id": "c2437ef708dab502",
+        "id": "66957fd11eb1e7f3",
         "type": "function",
-        "z": "f11a6acbc82d2c5c",
-        "name": "compute fire factor",
-        "func": "var data = msg.payload;\nvar fireRisk = (data.temperature * 0.4 + data.humidity * 0.2 + data.windSpeed * 0.3 + data.precipitation * 0.1);\n msg.payload = fireRisk;\nreturn msg;",
+        "z": "e0d523198c47fac8",
+        "name": "build subscribe topic command",
+        "func": "var applicationId = env.get(\"applicationId\");\nvar deviceId = env.get(\"deviceId\");\n\nif(!applicationId) {\n    applicationId = env.get(\"SENSECRAFT_MISSION_PACK_CHIRPSTACK_APPID\");\n}\n\nif(!deviceId) {\n    deviceId = env.get(\"SENSECRAFT_MISSION_PACK_DEVICE_ULTRASONIC_DEVEUI\")\n}\n\nmsg.action = 'subscribe'\nmsg.topic = {\n    topic: `application/${applicationId}/device/${deviceId}/event/up`,\n    qos: 0\n}\n\nreturn msg;",
         "outputs": 1,
-        "timeout": "",
+        "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 430,
-        "y": 360,
+        "x": 370,
+        "y": 80,
         "wires": [
             [
-                "28d356b875a141bc"
+                "4ed1a424454e047f"
             ]
         ]
     },
     {
-        "id": "28d356b875a141bc",
-        "type": "switch",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
-        "property": "fireRisk",
-        "propertyType": "env",
-        "rules": [
-            {
-                "t": "true"
-            }
-        ],
-        "checkall": "true",
-        "repair": false,
+        "id": "f375699ff32824af",
+        "type": "inject",
+        "z": "e0d523198c47fac8",
+        "name": "on startup",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 130,
+        "y": 80,
+        "wires": [
+            [
+                "66957fd11eb1e7f3"
+            ]
+        ]
+    },
+    {
+        "id": "4a6bb66a194ebecb",
+        "type": "function",
+        "z": "e0d523198c47fac8",
+        "d": true,
+        "name": "decode ultrasonic message",
+        "func": "var value = (msg.payload.object.messages[0][0].measurementValue || 0) / 1000.0\n\nmsg.payload = value;\nmsg.sensecraft = {}\nmsg.sensecraft.fromType = \"Device\"\nmsg.sensecraft.valueMeaning = \"ChangeValue\"\nmsg.sensecraft.valuetype = \"Number\"\nmsg.sensecraft.expectInputType = [\"Condition\"]\n\nreturn msg;\n",
         "outputs": 1,
-        "x": 610,
-        "y": 360,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1300,
+        "y": 80,
         "wires": [
             [
-                "7a2d00bd3764599c"
+                "b4cae0a3a27b6aa9"
             ]
         ]
     },
     {
-        "id": "7a2d00bd3764599c",
+        "id": "9369152b78be0fd8",
         "type": "change",
-        "z": "f11a6acbc82d2c5c",
-        "name": "",
+        "z": "e0d523198c47fac8",
+        "d": true,
+        "name": "delete unused msg fields",
         "rules": [
             {
-                "t": "set",
+                "t": "delete",
                 "p": "topic",
-                "pt": "msg",
-                "to": "fireRisk",
-                "tot": "str"
+                "pt": "msg"
             }
         ],
         "action": "",
@@ -656,12 +311,868 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 780,
+        "x": 1010,
+        "y": 80,
+        "wires": [
+            [
+                "4a6bb66a194ebecb"
+            ]
+        ]
+    },
+    {
+        "id": "b4cae0a3a27b6aa9",
+        "type": "function",
+        "z": "e0d523198c47fac8",
+        "name": "update status",
+        "func": "return {\n    payload: {\n        fill: \"green\",\n        shape: \"dot\",\n        text: 'Last Value: ' + msg.payload\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1540,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "609a0d5ccc3483ea",
+        "type": "function",
+        "z": "e0d523198c47fac8",
+        "name": "decode lorawan raw message",
+        "func": "// Decode the MQTT payload from ChirpStack, which is Base64 encoded hex data\nvar base64Data = msg.payload.data || \"\";\nvar devEui = msg.payload.deviceInfo.devEui;\nvar bytes = Buffer.from(base64Data, 'base64'); // Decode Base64 string to byte array\nvar port = msg.payload.fPort || 0; // Extract fPort from the message, defaulting to 0 if not present\n\n// Call the decodeUplink function to process the decoded bytes\nmsg = {\n    payload: Decoder(bytes, port).data\n}\n\n// Return the processed message object\nreturn msg;\n\n\n\nfunction Decoder(bytes, port) {\n    // data split\n\n    bytes = bytes2HexString(bytes)\n        .toLocaleUpperCase()\n\n    let result = {\n        'err': 0, 'payload': bytes, 'valid': true, messages: []\n    }\n    let splitArray = dataSplit(bytes)\n    // data decoder\n    let decoderArray = []\n    for (let i = 0; i < splitArray.length; i++) {\n        let item = splitArray[i]\n        let dataId = item.dataId\n        let dataValue = item.dataValue\n        let messages = dataIdAndDataValueJudge(dataId, dataValue)\n        decoderArray.push(messages)\n    }\n    result.messages = decoderArray\n    return { data: result }\n}\n\n/**\n * data splits\n * @param bytes\n * @returns {*[]}\n */\nfunction dataSplit(bytes) {\n    let frameArray = []\n\n    for (let i = 0; i < bytes.length; i++) {\n        let remainingValue = bytes\n        let dataId = remainingValue.substring(0, 2)\n        let dataValue\n        let dataObj = {}\n        switch (dataId) {\n            case '01':\n            case '20':\n            case '21':\n            case '30':\n            case '31':\n            case '33':\n            case '40':\n            case '41':\n            case '42':\n            case '43':\n            case '44':\n            case '45':\n                dataValue = remainingValue.substring(2, 22)\n                bytes = remainingValue.substring(22)\n                dataObj = {\n                    'dataId': dataId, 'dataValue': dataValue\n                }\n                break\n            case '02':\n                dataValue = remainingValue.substring(2, 18)\n                bytes = remainingValue.substring(18)\n                dataObj = {\n                    'dataId': '02', 'dataValue': dataValue\n                }\n                break\n            case '03':\n            case '06':\n                dataValue = remainingValue.substring(2, 4)\n                bytes = remainingValue.substring(4)\n                dataObj = {\n                    'dataId': dataId, 'dataValue': dataValue\n                }\n                break\n            case '05':\n            case '34':\n                dataValue = bytes.substring(2, 10)\n                bytes = remainingValue.substring(10)\n                dataObj = {\n                    'dataId': dataId, 'dataValue': dataValue\n                }\n                break\n            case '04':\n            case '10':\n            case '32':\n            case '35':\n            case '36':\n            case '37':\n            case '38':\n            case '39':\n                dataValue = bytes.substring(2, 20)\n                bytes = remainingValue.substring(20)\n                dataObj = {\n                    'dataId': dataId, 'dataValue': dataValue\n                }\n                break\n            default:\n                dataValue = '9'\n                break\n        }\n        if (dataValue.length < 2) {\n            break\n        }\n        frameArray.push(dataObj)\n    }\n    return frameArray\n}\n\nfunction dataIdAndDataValueJudge(dataId, dataValue) {\n    let messages = []\n    switch (dataId) {\n        case '01':\n            let temperature = dataValue.substring(0, 4)\n            let humidity = dataValue.substring(4, 6)\n            let illumination = dataValue.substring(6, 14)\n            let uv = dataValue.substring(14, 16)\n            let windSpeed = dataValue.substring(16, 20)\n            messages = [{\n                measurementValue: loraWANV2DataFormat(temperature, 10), measurementId: '4097', type: 'Air Temperature'\n            }, {\n                measurementValue: loraWANV2DataFormat(humidity), measurementId: '4098', type: 'Air Humidity'\n            }, {\n                measurementValue: loraWANV2DataFormat(illumination), measurementId: '4099', type: 'Light Intensity'\n            }, {\n                measurementValue: loraWANV2DataFormat(uv, 10), measurementId: '4190', type: 'UV Index'\n            }, {\n                measurementValue: loraWANV2DataFormat(windSpeed, 10), measurementId: '4105', type: 'Wind Speed'\n            }]\n            break\n        case '02':\n            let windDirection = dataValue.substring(0, 4)\n            let rainfall = dataValue.substring(4, 12)\n            let airPressure = dataValue.substring(12, 16)\n            messages = [{\n                measurementValue: loraWANV2DataFormat(windDirection), measurementId: '4104', type: 'Wind Direction Sensor'\n            }, {\n                measurementValue: loraWANV2DataFormat(rainfall, 1000), measurementId: '4113', type: 'Rain Gauge'\n            }, {\n\n                measurementValue: loraWANV2DataFormat(airPressure, 0.1), measurementId: '4101', type: 'Barometric Pressure'\n            }]\n            break\n        case '03':\n            let Electricity = dataValue\n            messages = [{\n                'Battery(%)': loraWANV2DataFormat(Electricity)\n            }]\n            break\n        case '04':\n            let electricityWhether = dataValue.substring(0, 2)\n            let hwv = dataValue.substring(2, 6)\n            let bdv = dataValue.substring(6, 10)\n            let sensorAcquisitionInterval = dataValue.substring(10, 14)\n            let gpsAcquisitionInterval = dataValue.substring(14, 18)\n            messages = [{\n                'Battery(%)': loraWANV2DataFormat(electricityWhether),\n                'Hardware Version': `${loraWANV2DataFormat(hwv.substring(0, 2))}.${loraWANV2DataFormat(hwv.substring(2, 4))}`,\n                'Firmware Version': `${loraWANV2DataFormat(bdv.substring(0, 2))}.${loraWANV2DataFormat(bdv.substring(2, 4))}`,\n                'measureInterval': parseInt(loraWANV2DataFormat(sensorAcquisitionInterval)) * 60,\n                'gpsInterval': parseInt(loraWANV2DataFormat(gpsAcquisitionInterval)) * 60\n            }]\n            break\n        case '05':\n            let sensorAcquisitionIntervalFive = dataValue.substring(0, 4)\n            let gpsAcquisitionIntervalFive = dataValue.substring(4, 8)\n            messages = [{\n                'measureInterval': parseInt(loraWANV2DataFormat(sensorAcquisitionIntervalFive)) * 60,\n                'gpsInterval': parseInt(loraWANV2DataFormat(gpsAcquisitionIntervalFive)) * 60\n            }]\n            break\n        case '06':\n            let errorCode = dataValue\n            let descZh\n            switch (errorCode) {\n                case '00':\n                    descZh = 'CCL_SENSOR_ERROR_NONE'\n                    break\n                case '01':\n                    descZh = 'CCL_SENSOR_NOT_FOUND'\n                    break\n                case '02':\n                    descZh = 'CCL_SENSOR_WAKEUP_ERROR'\n                    break\n                case '03':\n                    descZh = 'CCL_SENSOR_NOT_RESPONSE'\n                    break\n                case '04':\n                    descZh = 'CCL_SENSOR_DATA_EMPTY'\n                    break\n                case '05':\n                    descZh = 'CCL_SENSOR_DATA_HEAD_ERROR'\n                    break\n                case '06':\n                    descZh = 'CCL_SENSOR_DATA_CRC_ERROR'\n                    break\n                case '07':\n                    descZh = 'CCL_SENSOR_DATA_B1_NO_VALID'\n                    break\n                case '08':\n                    descZh = 'CCL_SENSOR_DATA_B2_NO_VALID'\n                    break\n                case '09':\n                    descZh = 'CCL_SENSOR_RANDOM_NOT_MATCH'\n                    break\n                case '0A':\n                    descZh = 'CCL_SENSOR_PUBKEY_SIGN_VERIFY_FAILED'\n                    break\n                case '0B':\n                    descZh = 'CCL_SENSOR_DATA_SIGN_VERIFY_FAILED'\n                    break\n                case '0C':\n                    descZh = 'CCL_SENSOR_DATA_VALUE_HI'\n                    break\n                case '0D':\n                    descZh = 'CCL_SENSOR_DATA_VALUE_LOW'\n                    break\n                case '0E':\n                    descZh = 'CCL_SENSOR_DATA_VALUE_MISSED'\n                    break\n                case '0F':\n                    descZh = 'CCL_SENSOR_ARG_INVAILD'\n                    break\n                case '10':\n                    descZh = 'CCL_SENSOR_RS485_MASTER_BUSY'\n                    break\n                case '11':\n                    descZh = 'CCL_SENSOR_RS485_REV_DATA_ERROR'\n                    break\n                case '12':\n                    descZh = 'CCL_SENSOR_RS485_REG_MISSED'\n                    break\n                case '13':\n                    descZh = 'CCL_SENSOR_RS485_FUN_EXE_ERROR'\n                    break\n                case '14':\n                    descZh = 'CCL_SENSOR_RS485_WRITE_STRATEGY_ERROR'\n                    break\n                case '15':\n                    descZh = 'CCL_SENSOR_CONFIG_ERROR'\n                    break\n                case 'FF':\n                    descZh = 'CCL_SENSOR_DATA_ERROR_UNKONW'\n                    break\n                default:\n                    descZh = 'CC_OTHER_FAILED'\n                    break\n            }\n            messages = [{\n                measurementId: '4101', type: 'sensor_error_event', errCode: errorCode, descZh\n            }]\n            break\n        case '10':\n            let statusValue = dataValue.substring(0, 2)\n            let { status, type } = loraWANV2BitDataFormat(statusValue)\n            let sensecapId = dataValue.substring(2)\n            messages = [{\n                status: status, channelType: type, sensorEui: sensecapId\n            }]\n            break\n        case '20':\n            let initmeasurementId = 4175\n            let sensor = []\n            for (let i = 0; i < dataValue.length; i += 4) {\n                let modelId = loraWANV2DataFormat(dataValue.substring(i, i + 2))\n                let detectionType = loraWANV2DataFormat(dataValue.substring(i + 2, i + 4))\n                let aiHeadValues = `${modelId}.${detectionType}`\n                sensor.push({\n                    measurementValue: aiHeadValues, measurementId: initmeasurementId\n                })\n                initmeasurementId++\n            }\n            messages = sensor\n            break\n        case '21':\n            // Vision AI:\n            // AI 识别输出帧\n            let tailValueArray = []\n            let initTailmeasurementId = 4180\n            for (let i = 0; i < dataValue.length; i += 4) {\n                let modelId = loraWANV2DataFormat(dataValue.substring(i, i + 2))\n                let detectionType = loraWANV2DataFormat(dataValue.substring(i + 2, i + 4))\n                let aiTailValues = `${modelId}.${detectionType}`\n                tailValueArray.push({\n                    measurementValue: aiTailValues, measurementId: initTailmeasurementId, type: `AI Detection ${i}`\n                })\n                initTailmeasurementId++\n            }\n            messages = tailValueArray\n            break\n        case '30':\n        case '31':\n            // 首帧或者首帧输出帧\n            let channelInfoOne = loraWANV2ChannelBitFormat(dataValue.substring(0, 2))\n            let dataOne = {\n                measurementValue: loraWANV2DataFormat(dataValue.substring(4, 12), 1000),\n                measurementId: parseInt(channelInfoOne.one),\n                type: 'Measurement'\n            }\n            let dataTwo = {\n                measurementValue: loraWANV2DataFormat(dataValue.substring(12, 20), 1000),\n                measurementId: parseInt(channelInfoOne.two),\n                type: 'Measurement'\n            }\n            let cacheArrayInfo = []\n            if (parseInt(channelInfoOne.one)) {\n                cacheArrayInfo.push(dataOne)\n            }\n            if (parseInt(channelInfoOne.two)) {\n                cacheArrayInfo.push(dataTwo)\n            }\n            cacheArrayInfo.forEach(item => {\n                messages.push(item)\n            })\n            break\n        case '32':\n            let channelInfoTwo = loraWANV2ChannelBitFormat(dataValue.substring(0, 2))\n            let dataThree = {\n                measurementValue: loraWANV2DataFormat(dataValue.substring(2, 10), 1000),\n                measurementId: parseInt(channelInfoTwo.one),\n                type: 'Measurement'\n            }\n            let dataFour = {\n                measurementValue: loraWANV2DataFormat(dataValue.substring(10, 18), 1000),\n                measurementId: parseInt(channelInfoTwo.two),\n                type: 'Measurement'\n            }\n            if (parseInt(channelInfoTwo.one)) {\n                messages.push(dataThree)\n            }\n            if (parseInt(channelInfoTwo.two)) {\n                messages.push(dataFour)\n            }\n            break\n        case '33':\n            let channelInfoThree = loraWANV2ChannelBitFormat(dataValue.substring(0, 2))\n            let dataFive = {\n                measurementValue: loraWANV2DataFormat(dataValue.substring(4, 12), 1000),\n                measurementId: parseInt(channelInfoThree.one),\n                type: 'Measurement'\n            }\n            let dataSix = {\n                measurementValue: loraWANV2DataFormat(dataValue.substring(12, 20), 1000),\n                measurementId: parseInt(channelInfoThree.two),\n                type: 'Measurement'\n            }\n            if (parseInt(channelInfoThree.one)) {\n                messages.push(dataFive)\n            }\n            if (parseInt(channelInfoThree.two)) {\n                messages.push(dataSix)\n            }\n\n            break\n        case '34':\n            let model = loraWANV2DataFormat(dataValue.substring(0, 2))\n            let GPIOInput = loraWANV2DataFormat(dataValue.substring(2, 4))\n            let simulationModel = loraWANV2DataFormat(dataValue.substring(4, 6))\n            let simulationInterface = loraWANV2DataFormat(dataValue.substring(6, 8))\n            messages = [{\n                'dataloggerProtocol': model, 'dataloggerGPIOInput': GPIOInput, 'dataloggerAnalogType': simulationModel, 'dataloggerAnalogInterface': simulationInterface\n            }]\n            break\n        case '35':\n        case '36':\n            let channelTDOne = loraWANV2ChannelBitFormat(dataValue.substring(0, 2))\n            let channelSortTDOne = 3920 + (parseInt(channelTDOne.one) - 1) * 2\n            let channelSortTDTWO = 3921 + (parseInt(channelTDOne.one) - 1) * 2\n            messages = [{\n                [channelSortTDOne]: loraWANV2DataFormat(dataValue.substring(2, 10), 1000),\n                [channelSortTDTWO]: loraWANV2DataFormat(dataValue.substring(10, 18), 1000)\n            }]\n            break\n        case '37':\n            let channelTDInfoTwo = loraWANV2ChannelBitFormat(dataValue.substring(0, 2))\n            let channelSortOne = 3920 + (parseInt(channelTDInfoTwo.one) - 1) * 2\n            let channelSortTWO = 3921 + (parseInt(channelTDInfoTwo.one) - 1) * 2\n            messages = [{\n                [channelSortOne]: loraWANV2DataFormat(dataValue.substring(2, 10), 1000),\n                [channelSortTWO]: loraWANV2DataFormat(dataValue.substring(10, 18), 1000)\n            }]\n            break\n        case '38':\n            let channelTDInfoThree = loraWANV2ChannelBitFormat(dataValue.substring(0, 2))\n            let channelSortThreeOne = 3920 + (parseInt(channelTDInfoThree.one) - 1) * 2\n            let channelSortThreeTWO = 3921 + (parseInt(channelTDInfoThree.one) - 1) * 2\n            messages = [{\n                [channelSortThreeOne]: loraWANV2DataFormat(dataValue.substring(2, 10), 1000),\n                [channelSortThreeTWO]: loraWANV2DataFormat(dataValue.substring(10, 18), 1000)\n            }]\n            break\n        case '39':\n            let electricityWhetherTD = dataValue.substring(0, 2)\n            let hwvTD = dataValue.substring(2, 6)\n            let bdvTD = dataValue.substring(6, 10)\n            let sensorAcquisitionIntervalTD = dataValue.substring(10, 14)\n            let gpsAcquisitionIntervalTD = dataValue.substring(14, 18)\n            messages = [{\n                'Battery(%)': loraWANV2DataFormat(electricityWhetherTD),\n                'Hardware Version': `${loraWANV2DataFormat(hwvTD.substring(0, 2))}.${loraWANV2DataFormat(hwvTD.substring(2, 4))}`,\n                'Firmware Version': `${loraWANV2DataFormat(bdvTD.substring(0, 2))}.${loraWANV2DataFormat(bdvTD.substring(2, 4))}`,\n                'measureInterval': parseInt(loraWANV2DataFormat(sensorAcquisitionIntervalTD)) * 60,\n                'thresholdMeasureInterval': parseInt(loraWANV2DataFormat(gpsAcquisitionIntervalTD))\n            }]\n            break\n        case '40':\n        case '41':\n            let lightIntensity = dataValue.substring(0, 4)\n            let loudness = dataValue.substring(4, 8)\n            // X\n            let accelerateX = dataValue.substring(8, 12)\n            // Y\n            let accelerateY = dataValue.substring(12, 16)\n            // Z\n            let accelerateZ = dataValue.substring(16, 20)\n            messages = [{\n                measurementValue: loraWANV2DataFormat(lightIntensity), measurementId: '4193', type: 'Light Intensity'\n            }, {\n                measurementValue: loraWANV2DataFormat(loudness), measurementId: '4192', type: 'Sound Intensity'\n            }, {\n\n                measurementValue: loraWANV2DataFormat(accelerateX, 100), measurementId: '4150', type: 'AccelerometerX'\n            }, {\n\n                measurementValue: loraWANV2DataFormat(accelerateY, 100), measurementId: '4151', type: 'AccelerometerY'\n            }, {\n\n                measurementValue: loraWANV2DataFormat(accelerateZ, 100), measurementId: '4152', type: 'AccelerometerZ'\n            }]\n            break\n        case '42':\n            let airTemperature = dataValue.substring(0, 4)\n            let AirHumidity = dataValue.substring(4, 8)\n            let tVOC = dataValue.substring(8, 12)\n            let CO2eq = dataValue.substring(12, 16)\n            let soilMoisture = dataValue.substring(16, 20)\n            messages = [{\n                measurementValue: loraWANV2DataFormat(airTemperature, 100), measurementId: '4097', type: 'Air Temperature'\n            }, {\n                measurementValue: loraWANV2DataFormat(AirHumidity, 100), measurementId: '4098', type: 'Air Humidity'\n            }, {\n                measurementValue: loraWANV2DataFormat(tVOC), measurementId: '4195', type: 'Total Volatile Organic Compounds'\n            }, {\n                measurementValue: loraWANV2DataFormat(CO2eq), measurementId: '4100', type: 'CO2'\n            }, {\n                measurementValue: loraWANV2DataFormat(soilMoisture), measurementId: '4196', type: 'Soil moisture intensity'\n            }]\n            break\n        case '43':\n        case '44':\n            let headerDevKitValueArray = []\n            let initDevkitmeasurementId = 4175\n            for (let i = 0; i < dataValue.length; i += 4) {\n                let modelId = loraWANV2DataFormat(dataValue.substring(i, i + 2))\n                let detectionType = loraWANV2DataFormat(dataValue.substring(i + 2, i + 4))\n                let aiHeadValues = `${modelId}.${detectionType}`\n                headerDevKitValueArray.push({\n                    measurementValue: aiHeadValues, measurementId: initDevkitmeasurementId, type: `AI Detection ${i}`\n                })\n                initDevkitmeasurementId++\n            }\n            messages = headerDevKitValueArray\n            break\n        case '45':\n            let initTailDevKitmeasurementId = 4180\n            for (let i = 0; i < dataValue.length; i += 4) {\n                let modelId = loraWANV2DataFormat(dataValue.substring(i, i + 2))\n                let detectionType = loraWANV2DataFormat(dataValue.substring(i + 2, i + 4))\n                let aiTailValues = `${modelId}.${detectionType}`\n                messages.push({\n                    measurementValue: aiTailValues, measurementId: initTailDevKitmeasurementId, type: `AI Detection ${i}`\n                })\n                initTailDevKitmeasurementId++\n            }\n            break\n        default:\n            break\n    }\n    return messages\n}\n\n/**\n *\n * data formatting\n * @param str\n * @param divisor\n * @returns {string|number}\n */\nfunction loraWANV2DataFormat(str, divisor = 1) {\n    let strReverse = bigEndianTransform(str)\n    let str2 = toBinary(strReverse)\n    if (str2.substring(0, 1) === '1') {\n        let arr = str2.split('')\n        let reverseArr = arr.map((item) => {\n            if (parseInt(item) === 1) {\n                return 0\n            } else {\n                return 1\n            }\n        })\n        str2 = parseInt(reverseArr.join(''), 2) + 1\n        return parseFloat('-' + str2 / divisor)\n    }\n    return parseInt(str2, 2) / divisor\n}\n\n/**\n * Handling big-endian data formats\n * @param data\n * @returns {*[]}\n */\nfunction bigEndianTransform(data) {\n    let dataArray = []\n    for (let i = 0; i < data.length; i += 2) {\n        dataArray.push(data.substring(i, i + 2))\n    }\n    // array of hex\n    return dataArray\n}\n\n/**\n * Convert to an 8-digit binary number with 0s in front of the number\n * @param arr\n * @returns {string}\n */\nfunction toBinary(arr) {\n    let binaryData = arr.map((item) => {\n        let data = parseInt(item, 16)\n            .toString(2)\n        let dataLength = data.length\n        if (data.length !== 8) {\n            for (let i = 0; i < 8 - dataLength; i++) {\n                data = `0` + data\n            }\n        }\n        return data\n    })\n    let ret = binaryData.toString()\n        .replace(/,/g, '')\n    return ret\n}\n\n/**\n * sensor\n * @param str\n * @returns {{channel: number, type: number, status: number}}\n */\nfunction loraWANV2BitDataFormat(str) {\n    let strReverse = bigEndianTransform(str)\n    let str2 = toBinary(strReverse)\n    let channel = parseInt(str2.substring(0, 4), 2)\n    let status = parseInt(str2.substring(4, 5), 2)\n    let type = parseInt(str2.substring(5), 2)\n    return { channel, status, type }\n}\n\n/**\n * channel info\n * @param str\n * @returns {{channelTwo: number, channelOne: number}}\n */\nfunction loraWANV2ChannelBitFormat(str) {\n    let strReverse = bigEndianTransform(str)\n    let str2 = toBinary(strReverse)\n    let one = parseInt(str2.substring(0, 4), 2)\n    let two = parseInt(str2.substring(4, 8), 2)\n    let resultInfo = {\n        one: one, two: two\n    }\n    return resultInfo\n}\n\n/**\n * data log status bit\n * @param str\n * @returns {{total: number, level: number, isTH: number}}\n */\nfunction loraWANV2DataLogBitFormat(str) {\n    let strReverse = bigEndianTransform(str)\n    let str2 = toBinary(strReverse)\n    let isTH = parseInt(str2.substring(0, 1), 2)\n    let total = parseInt(str2.substring(1, 5), 2)\n    let left = parseInt(str2.substring(5), 2)\n    let resultInfo = {\n        isTH: isTH, total: total, left: left\n    }\n    return resultInfo\n}\n\nfunction bytes2HexString(arrBytes) {\n    var str = ''\n    for (var i = 0; i < arrBytes.length; i++) {\n        var tmp\n        var num = arrBytes[i]\n        if (num < 0) {\n            tmp = (255 + num + 1).toString(16)\n        } else {\n            tmp = num.toString(16)\n        }\n        if (tmp.length === 1) {\n            tmp = '0' + tmp\n        }\n        str += tmp\n    }\n    return str\n}",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 17,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 990,
+        "y": 160,
+        "wires": [
+            [
+                "e759cd06d6462147",
+                "c77292c875b3eda0",
+                "12034743fd18f247",
+                "69b736acae768564",
+                "60c6293cefc32372",
+                "2b54b71d87217e81",
+                "dc27caa488da7adb",
+                "8e6dc46df7dc6d25"
+            ]
+        ]
+    },
+    {
+        "id": "e759cd06d6462147",
+        "type": "function",
+        "z": "e0d523198c47fac8",
+        "name": "decode ultrasonic message",
+        "func": "var value = (msg.payload.messages[0][0].measurementValue || 0)\n\nreturn {\n    payload: value,\n    sensecraft: {\n        fromType: 'Device',\n        valueMeaning: 'ChangeValue',\n        valuetype: 'Number',\n        expectInputType: ['Condition']\n    }\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
         "y": 360,
         "wires": [
             [
-                "9c84a20fd70247b6"
+                "b4cae0a3a27b6aa9"
             ]
         ]
+    },
+    {
+        "id": "c77292c875b3eda0",
+        "type": "debug",
+        "z": "e0d523198c47fac8",
+        "name": "debug 19",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1360,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "12034743fd18f247",
+        "type": "function",
+        "z": "e0d523198c47fac8",
+        "name": "decode ultrasonic message",
+        "func": "var value = (msg.payload.messages[0][1].measurementValue || 0)\n\nreturn {\n    payload: value,\n    sensecraft: {\n        fromType: 'Device',\n        valueMeaning: 'ChangeValue',\n        valuetype: 'Number',\n        expectInputType: ['Condition']\n    }\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "69b736acae768564",
+        "type": "function",
+        "z": "e0d523198c47fac8",
+        "name": "decode ultrasonic message",
+        "func": "var value = (msg.payload.messages[1][0].measurementValue || 0) / 1000.0\n\nreturn {\n    payload: parseInt(value),\n    sensecraft: {\n        fromType: 'Device',\n        valueMeaning: 'ChangeValue',\n        valuetype: 'Number',\n        expectInputType: ['Condition']\n    }\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "60c6293cefc32372",
+        "type": "function",
+        "z": "e0d523198c47fac8",
+        "name": "decode ultrasonic message",
+        "func": "var value = (msg.payload.messages[1][1].measurementValue || 0)\n\nreturn {\n    payload: value,\n    sensecraft: {\n        fromType: 'Device',\n        valueMeaning: 'ChangeValue',\n        valuetype: 'Number',\n        expectInputType: ['Condition']\n    }\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2b54b71d87217e81",
+        "type": "function",
+        "z": "e0d523198c47fac8",
+        "name": "decode ultrasonic message",
+        "func": "var value = (msg.payload.messages[2][0].measurementValue || 0)\n\nreturn {\n    payload: value,\n    sensecraft: {\n        fromType: 'Device',\n        valueMeaning: 'ChangeValue',\n        valuetype: 'Number',\n        expectInputType: ['Condition']\n    }\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 600,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dc27caa488da7adb",
+        "type": "function",
+        "z": "e0d523198c47fac8",
+        "name": "decode ultrasonic message",
+        "func": "var value = (msg.payload.messages[2][1].measurementValue || 0)\n\nreturn {\n    payload: value,\n    sensecraft: {\n        fromType: 'Device',\n        valueMeaning: 'ChangeValue',\n        valuetype: 'Number',\n        expectInputType: ['Condition']\n    }\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8e6dc46df7dc6d25",
+        "type": "function",
+        "z": "e0d523198c47fac8",
+        "name": "decode ultrasonic message",
+        "func": "var value = (msg.payload.messages[3][0].measurementValue || 0)\n\nreturn {\n    payload: value,\n    sensecraft: {\n        fromType: 'Device',\n        valueMeaning: 'ChangeValue',\n        valuetype: 'Number',\n        expectInputType: ['Condition']\n    }\n}\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1420,
+        "y": 720,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c25ee8e3cadf74f6",
+        "type": "subflow",
+        "name": "Digital Twin Data Card",
+        "info": "",
+        "category": "※digital-twins",
+        "in": [
+            {
+                "x": 220,
+                "y": 620,
+                "wires": [
+                    {
+                        "id": "81111372d49074cf"
+                    },
+                    {
+                        "id": "270964d67cd7e5ca"
+                    }
+                ]
+            }
+        ],
+        "out": [],
+        "env": [
+            {
+                "name": "↓ Dashboard UI",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "type": "none"
+                }
+            },
+            {
+                "name": "Group",
+                "type": "ui-group",
+                "value": "",
+                "ui": {
+                    "type": "conf-types"
+                }
+            },
+            {
+                "name": "↓ Card",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "type": "none"
+                }
+            },
+            {
+                "name": "card_name",
+                "type": "str",
+                "value": "Ultrasonic",
+                "ui": {
+                    "icon": "font-awesome/fa-vcard-o",
+                    "label": {
+                        "zh-CN": "Name",
+                        "en-US": "Name"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "card_font_size",
+                "type": "num",
+                "value": "14",
+                "ui": {
+                    "icon": "font-awesome/fa-sort-numeric-asc",
+                    "label": {
+                        "zh-CN": "Font size",
+                        "en-US": "Font size"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "num"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "card_unit",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "label": {
+                        "zh-CN": "Value Unit",
+                        "en-US": "Value Unit"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "↓ Position",
+                "type": "str",
+                "value": "",
+                "ui": {
+                    "type": "none"
+                }
+            },
+            {
+                "name": "card_position_y",
+                "type": "str",
+                "value": "0%",
+                "ui": {
+                    "icon": "font-awesome/fa-percent",
+                    "label": {
+                        "zh-CN": "Top Position(%)",
+                        "en-US": "Top Position(%)"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            },
+            {
+                "name": "card_position_x",
+                "type": "str",
+                "value": "0%",
+                "ui": {
+                    "icon": "font-awesome/fa-percent",
+                    "label": {
+                        "zh-CN": "Left Position(%)",
+                        "en-US": "Left Position(%)"
+                    },
+                    "type": "input",
+                    "opts": {
+                        "types": [
+                            "str"
+                        ]
+                    }
+                }
+            }
+        ],
+        "meta": {
+            "version": "0.0.1",
+            "author": "seeed",
+            "license": "Apache-2.0"
+        },
+        "color": "#9FE6EC",
+        "icon": "font-awesome/fa-building-o",
+        "status": {
+            "x": 740,
+            "y": 680,
+            "wires": [
+                {
+                    "id": "270964d67cd7e5ca",
+                    "port": 0
+                },
+                {
+                    "id": "ed8749cbb76eaff3",
+                    "port": 0
+                }
+            ]
+        }
+    },
+    {
+        "id": "dcdfb77142edf9f9",
+        "type": "ui-template",
+        "z": "c25ee8e3cadf74f6",
+        "group": "${Group}",
+        "page": "",
+        "ui": "",
+        "name": "UI Template",
+        "order": 4,
+        "width": "1",
+        "height": "1",
+        "head": "",
+        "format": "<template>\n  <div\n    class=\"item-881695\"\n    :style=\"\n      'left:' +\n      msg.payload.position[0] +\n      ';top:' +\n      msg.payload.position[1] +\n      ';'\n    \"\n  >\n    <div>{{ msg.payload.name }}</div>\n    <div :style=\"'font-size:' + msg.payload.fontSize * 2 + 'px !important;'\">\n      {{ msg.payload.value }} {{msg.payload.unit}}\n    </div>\n    <div :style=\"'font-size:' + msg.payload.fontSize * 0.8 + 'px !important;'\">\n      {{ timeFn(msg.payload.time) }}\n    </div>\n    <div :style=\"'font-size:' + msg.payload.fontSize * 0.8 + 'px !important;'\">\n      {{ msg.payload.time === 0 ? '..' : '' }}\n    </div>\n  </div>\n</template>\n\n<script>\nexport default {\n  data() {\n    return {};\n  },\n  created() {},\n\n  methods: {\n    /**\n     * @description 10位时间戳转换\n     * @param time\n     * @returns {string}\n     */\n    tenBitTimestamp(time, type) {\n      const date = new Date(time * 1000);\n      const y = date.getFullYear();\n      let m = date.getMonth() + 1;\n      m = m < 10 ? \"0\" + m : m;\n      let d = date.getDate();\n      d = d < 10 ? \"0\" + d : d;\n      let h = date.getHours();\n      h = h < 10 ? \"0\" + h : h;\n      let minute = date.getMinutes();\n      let second = date.getSeconds();\n      minute = minute < 10 ? \"0\" + minute : minute;\n      second = second < 10 ? \"0\" + second : second;\n      return type\n        ? y + \"/\" + m + \"/\" + d\n        : y + \"/\" + m + \"/\" + d + \" \" + h + \":\" + minute + \":\" + second; //组合\n    },\n\n    /**\n     * @description 13位时间戳转换\n     * @param time\n     * @returns {string}\n     */\n    thirteenBitTimestamp(time, type) {\n      const date = new Date(time / 1);\n      const y = date.getFullYear();\n      let m = date.getMonth() + 1;\n      m = m < 10 ? \"0\" + m : m;\n      let d = date.getDate();\n      d = d < 10 ? \"0\" + d : d;\n      let h = date.getHours();\n      h = h < 10 ? \"0\" + h : h;\n      let minute = date.getMinutes();\n      let second = date.getSeconds();\n      minute = minute < 10 ? \"0\" + minute : minute;\n      second = second < 10 ? \"0\" + second : second;\n      return type\n        ? y + \"/\" + m + \"/\" + d\n        : y + \"/\" + m + \"/\" + d + \" \" + h + \":\" + minute + \":\" + second; //组合\n    },\n\n    timeFn(time, type) {\n      if (time === 0) {\n        return \"--\";\n      }\n      time = time + \"\";\n      let timestamp;\n      if (time.length == 10) timestamp = this.tenBitTimestamp(time, type);\n      else if (time.length == 13)\n        timestamp = this.thirteenBitTimestamp(time, type);\n      else return (timestamp = \"\");\n      let timezone = timestamp\n        ? parseInt((0 - new Date(timestamp).getTimezoneOffset()) / 60)\n        : \"\";\n      timezone = timezone\n        ? (timezone > 0 ? \"(UTC+\" : \"(UTC\") + timezone + \")\"\n        : \"\";\n      return type ? timestamp : timestamp + timezone;\n    },\n  },\n};\n</script>\n\n<style>\n.item-881695 {\n  width: 170px;\n  height: auto;\n  position: absolute;\n  z-index: 1;\n  background: rgba(255, 255, 255, 0.8);\n  padding: 20px;\n  border-radius: 10px;\n  font-weight: bold;\n}\n</style>\n",
+        "storeOutMessages": true,
+        "passthru": false,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1410,
+        "y": 520,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3b56b93f6cf23646",
+        "type": "function",
+        "z": "c25ee8e3cadf74f6",
+        "name": "set font size",
+        "func": "msg.payload = {\n    ...msg.payload,\n    fontSize: env.get(\"card_font_size\")\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1030,
+        "y": 520,
+        "wires": [
+            [
+                "3f1983a07bacaa61"
+            ]
+        ]
+    },
+    {
+        "id": "eb2b84e989af7418",
+        "type": "function",
+        "z": "c25ee8e3cadf74f6",
+        "name": "set name",
+        "func": "msg.payload = {\n    ...msg.payload,\n    name: env.get(\"card_name\")\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 680,
+        "y": 520,
+        "wires": [
+            [
+                "afa26713358dce1e"
+            ]
+        ]
+    },
+    {
+        "id": "afa26713358dce1e",
+        "type": "function",
+        "z": "c25ee8e3cadf74f6",
+        "name": "set position",
+        "func": "msg.payload = {\n    ...msg.payload,\n    position: [\n        env.get(\"card_position_x\"), \n        env.get(\"card_position_y\")\n    ]\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 850,
+        "y": 520,
+        "wires": [
+            [
+                "3b56b93f6cf23646"
+            ]
+        ]
+    },
+    {
+        "id": "3f1983a07bacaa61",
+        "type": "function",
+        "z": "c25ee8e3cadf74f6",
+        "name": "set unit",
+        "func": "msg.payload = {\n    ...msg.payload,\n    unit: env.get(\"card_unit\")\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1200,
+        "y": 520,
+        "wires": [
+            [
+                "dcdfb77142edf9f9"
+            ]
+        ]
+    },
+    {
+        "id": "81111372d49074cf",
+        "type": "function",
+        "z": "c25ee8e3cadf74f6",
+        "name": "set value and time",
+        "func": "msg.payload = {\n    value: msg.payload,\n    time: '' + Date.now()\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 520,
+        "wires": [
+            [
+                "eb2b84e989af7418"
+            ]
+        ]
+    },
+    {
+        "id": "74162ccbd520f320",
+        "type": "inject",
+        "z": "c25ee8e3cadf74f6",
+        "name": "On Startup",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.1",
+        "topic": "",
+        "x": 250,
+        "y": 420,
+        "wires": [
+            [
+                "e75d38e7f7e2418c",
+                "ed8749cbb76eaff3"
+            ]
+        ]
+    },
+    {
+        "id": "e75d38e7f7e2418c",
+        "type": "function",
+        "z": "c25ee8e3cadf74f6",
+        "name": "set value and time",
+        "func": "msg.payload = {\n    value: '--',\n    time: 0\n}\n\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 470,
+        "y": 420,
+        "wires": [
+            [
+                "eb2b84e989af7418"
+            ]
+        ]
+    },
+    {
+        "id": "270964d67cd7e5ca",
+        "type": "function",
+        "z": "c25ee8e3cadf74f6",
+        "name": "Show 'Lastest value'",
+        "func": "return {\n    payload: 'Last value: ' + msg.payload\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 460,
+        "y": 700,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ed8749cbb76eaff3",
+        "type": "function",
+        "z": "c25ee8e3cadf74f6",
+        "name": "Show 'Waiting to update value'",
+        "func": "return {\n    payload: {\n        fill: \"yellow\",\n        shape: \"dot\",\n        text: 'Waiting to update value'\n    }\n};",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 490,
+        "y": 660,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "995c84e705c42f95",
+        "type": "subflow:c25ee8e3cadf74f6",
+        "z": "0c809b82525ab765",
+        "g": "403fd0931430b1ba",
+        "name": "Light Intensity",
+        "env": [
+            {
+                "name": "Group",
+                "value": "8a67b5077a1657c0",
+                "type": "conf-type"
+            },
+            {
+                "name": "card_name",
+                "value": "Light Intensity",
+                "type": "str"
+            },
+            {
+                "name": "card_position_y",
+                "value": "70%",
+                "type": "str"
+            },
+            {
+                "name": "card_position_x",
+                "value": "27%",
+                "type": "str"
+            }
+        ],
+        "x": 560,
+        "y": 1200,
+        "wires": []
+    },
+    {
+        "id": "4d962a89b81eb87a",
+        "type": "subflow:c25ee8e3cadf74f6",
+        "z": "0c809b82525ab765",
+        "g": "403fd0931430b1ba",
+        "name": "Barometric Pressure",
+        "env": [
+            {
+                "name": "Group",
+                "value": "8a67b5077a1657c0",
+                "type": "conf-type"
+            },
+            {
+                "name": "card_name",
+                "value": "Barometric Pressure",
+                "type": "str"
+            },
+            {
+                "name": "card_position_y",
+                "value": "70%",
+                "type": "str"
+            },
+            {
+                "name": "card_position_x",
+                "value": "5%",
+                "type": "str"
+            }
+        ],
+        "x": 580,
+        "y": 1020,
+        "wires": []
+    },
+    {
+        "id": "f8e3221e1e80cbfe",
+        "type": "subflow:c25ee8e3cadf74f6",
+        "z": "0c809b82525ab765",
+        "g": "403fd0931430b1ba",
+        "name": "Wind Speed",
+        "env": [
+            {
+                "name": "Group",
+                "value": "8a67b5077a1657c0",
+                "type": "conf-type"
+            },
+            {
+                "name": "card_name",
+                "value": "Wind Speed",
+                "type": "str"
+            },
+            {
+                "name": "card_position_y",
+                "value": "70%",
+                "type": "str"
+            },
+            {
+                "name": "card_position_x",
+                "value": "49%",
+                "type": "str"
+            }
+        ],
+        "x": 550,
+        "y": 1080,
+        "wires": []
+    },
+    {
+        "id": "645dfed0a903142d",
+        "type": "subflow:c25ee8e3cadf74f6",
+        "z": "0c809b82525ab765",
+        "g": "403fd0931430b1ba",
+        "name": "Wind Direction",
+        "env": [
+            {
+                "name": "Group",
+                "value": "8a67b5077a1657c0",
+                "type": "conf-type"
+            },
+            {
+                "name": "card_name",
+                "value": "Wind Direction",
+                "type": "str"
+            },
+            {
+                "name": "card_position_y",
+                "value": "70%",
+                "type": "str"
+            },
+            {
+                "name": "card_position_x",
+                "value": "71%",
+                "type": "str"
+            }
+        ],
+        "x": 560,
+        "y": 1140,
+        "wires": []
+    },
+    {
+        "id": "25731624943ab460",
+        "type": "subflow:c25ee8e3cadf74f6",
+        "z": "0c809b82525ab765",
+        "g": "403fd0931430b1ba",
+        "name": "Air Humidity",
+        "env": [
+            {
+                "name": "Group",
+                "value": "8a67b5077a1657c0",
+                "type": "conf-type"
+            },
+            {
+                "name": "card_name",
+                "value": "Air Humidity",
+                "type": "str"
+            },
+            {
+                "name": "card_unit",
+                "value": "%",
+                "type": "str"
+            },
+            {
+                "name": "card_position_y",
+                "value": "40%",
+                "type": "str"
+            },
+            {
+                "name": "card_position_x",
+                "value": "27%",
+                "type": "str"
+            }
+        ],
+        "x": 550,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "01dc38762911d137",
+        "type": "subflow:c25ee8e3cadf74f6",
+        "z": "0c809b82525ab765",
+        "g": "403fd0931430b1ba",
+        "name": "Air Temperature",
+        "env": [
+            {
+                "name": "Group",
+                "value": "8a67b5077a1657c0",
+                "type": "conf-type"
+            },
+            {
+                "name": "card_name",
+                "value": "Air Temperature",
+                "type": "str"
+            },
+            {
+                "name": "card_unit",
+                "value": "℃",
+                "type": "str"
+            },
+            {
+                "name": "card_position_y",
+                "value": "40%",
+                "type": "str"
+            },
+            {
+                "name": "card_position_x",
+                "value": "5%",
+                "type": "str"
+            }
+        ],
+        "x": 560,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "551908b4f634e351",
+        "type": "comment",
+        "z": "0c809b82525ab765",
+        "g": "403fd0931430b1ba",
+        "name": "More References solution",
+        "info": "",
+        "x": 150,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "9db4c2e9d0a9ec58",
+        "type": "comment",
+        "z": "0c809b82525ab765",
+        "g": "403fd0931430b1ba",
+        "name": "v0.0.1",
+        "info": "",
+        "x": 530,
+        "y": 1320,
+        "wires": [],
+        "icon": "font-awesome/fa-exclamation-circle"
+    },
+    {
+        "id": "1aac4cfab3c1a16f",
+        "type": "subflow:e0d523198c47fac8",
+        "z": "0c809b82525ab765",
+        "g": "403fd0931430b1ba",
+        "name": "",
+        "env": [
+            {
+                "name": "mqttBroker",
+                "value": "ff55020100010001",
+                "type": "conf-type"
+            },
+            {
+                "name": "deviceId",
+                "value": "2cf7f1c06330006c",
+                "type": "str"
+            }
+        ],
+        "x": 180,
+        "y": 1020,
+        "wires": [
+            [
+                "01dc38762911d137"
+            ],
+            [
+                "25731624943ab460"
+            ],
+            [
+                "4d962a89b81eb87a"
+            ],
+            [
+                "f8e3221e1e80cbfe"
+            ],
+            [
+                "645dfed0a903142d"
+            ],
+            [
+                "995c84e705c42f95"
+            ],
+            [
+                "2daa1918dc47a50f"
+            ]
+        ]
+    },
+    {
+        "id": "2daa1918dc47a50f",
+        "type": "subflow:c25ee8e3cadf74f6",
+        "z": "0c809b82525ab765",
+        "g": "403fd0931430b1ba",
+        "name": "Rainfall Intensity",
+        "env": [
+            {
+                "name": "Group",
+                "value": "8a67b5077a1657c0",
+                "type": "conf-type"
+            },
+            {
+                "name": "card_name",
+                "value": "Rainfall Intensity",
+                "type": "str"
+            },
+            {
+                "name": "card_position_y",
+                "value": "40%",
+                "type": "str"
+            },
+            {
+                "name": "card_position_x",
+                "value": "49%",
+                "type": "str"
+            }
+        ],
+        "x": 560,
+        "y": 1260,
+        "wires": []
     }
 ]
