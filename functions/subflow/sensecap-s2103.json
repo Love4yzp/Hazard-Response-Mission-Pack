@@ -1,0 +1,352 @@
+[
+  {
+    "id": "dceb8a654a855d45",
+    "type": "subflow",
+    "name": "SenseCAP S2103",
+    "info": "",
+    "category": "※sensecap",
+    "in": [],
+    "out": [
+      {
+        "x": 1740,
+        "y": 220,
+        "wires": [
+          {
+            "id": "ba7d3189e2f4eee0",
+            "port": 0
+          }
+        ]
+      },
+      {
+        "x": 1760,
+        "y": 280,
+        "wires": [
+          {
+            "id": "c024163517548aad",
+            "port": 0
+          }
+        ]
+      },
+      {
+        "x": 1760,
+        "y": 340,
+        "wires": [
+          {
+            "id": "c957ccbb52e1cb6f",
+            "port": 0
+          }
+        ]
+      }
+    ],
+    "env": [
+      {
+        "name": "mqttBroker",
+        "type": "mqtt-broker",
+        "value": "ff55020100010001",
+        "ui": {
+          "type": "conf-types"
+        }
+      },
+      {
+        "name": "applicationId",
+        "type": "str",
+        "value": ""
+      },
+      {
+        "name": "deviceId",
+        "type": "str",
+        "value": ""
+      }
+    ],
+    "meta": {},
+    "color": "#B8EA4F",
+    "icon": "node-red/node_icon_s2100.png",
+    "status": {
+      "x": 420,
+      "y": 160,
+      "wires": []
+    }
+  },
+  {
+    "id": "f9d043e211c5ae32",
+    "type": "mqtt in",
+    "z": "dceb8a654a855d45",
+    "name": "subscribe mqtt, and receive message",
+    "topic": "",
+    "qos": "0",
+    "datatype": "auto-detect",
+    "broker": "ff55020100010001",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 1,
+    "x": 610,
+    "y": 360,
+    "wires": [
+      [
+        "faff8745539b90b4"
+      ]
+    ]
+  },
+  {
+    "id": "1c0304885b4b8a9d",
+    "type": "inject",
+    "z": "dceb8a654a855d45",
+    "name": "on startup",
+    "props": [],
+    "repeat": "",
+    "crontab": "",
+    "once": true,
+    "onceDelay": 0.1,
+    "topic": "",
+    "x": 110,
+    "y": 360,
+    "wires": [
+      [
+        "9a5892cda0df4b55"
+      ]
+    ]
+  },
+  {
+    "id": "9a5892cda0df4b55",
+    "type": "function",
+    "z": "dceb8a654a855d45",
+    "name": "Env Function",
+    "func": "var applicationId = env.get(\"applicationId\");\nvar deviceId = env.get(\"deviceId\");\nif(!applicationId) {\n    applicationId = env.get(\"SENSECRAFT_MISSION_PACK_CHIRPSTACK_APPID\");\n}\n\nif(!deviceId) {\n    deviceId = env.get(\"SENSECRAFT_MISSION_PACK_DEVICE_ULTRASONIC_DEVEUI\")\n}\n\nmsg.action = 'subscribe'\nmsg.topic = {\n    topic: `application/${applicationId}/device/${deviceId}/event/up`,\n    qos: 0\n}\n\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 310,
+    "y": 360,
+    "wires": [
+      [
+        "f9d043e211c5ae32"
+      ]
+    ]
+  },
+  {
+    "id": "faff8745539b90b4",
+    "type": "function",
+    "z": "dceb8a654a855d45",
+    "name": "decode function",
+    "func": "// Decode the MQTT payload from ChirpStack, which is Base64 encoded hex data\nvar base64Data = msg.payload.data || \"\";\nvar devEui = msg.payload.deviceInfo.devEui;\nvar bytes = Buffer.from(base64Data, 'base64'); // Decode Base64 string to byte array\nvar port = msg.payload.fPort || 0; // Extract fPort from the message, defaulting to 0 if not present\n\n// Call the decodeUplink function to process the decoded bytes\nmsg = {\n    payload: decodeUplink({bytes: bytes}, port).data\n}\n\n// Return the processed message object\nreturn msg;\n\n/**\n * Main decoder function for uplink messages.\n * Takes in the decoded byte array and processes it into a structured format.\n */\nfunction decodeUplink(input, port) {\n    var bytesString = input['bytes'];\n    bytesString = bytes2HexString(bytesString).toUpperCase(); // Convert byte array to uppercase hex string\n\n    let decoded = {\n        'err': 0, \n        'eui': devEui,\n        'port': port,\n        'payload': bytes, \n        'valid': true,\n        'messages': []\n    };\n\n    // CRC check\n    if (!crc16Check(bytesString)) {\n        decoded['valid'] = false;\n        decoded['err'] = -1; // \"crc check fail.\"\n        return {\n            data: decoded\n        };\n    }\n\n    // Length Check\n    if ((bytesString.length / 2 - 2) % 7 !== 0) {\n        decoded['valid'] = false;\n        decoded['err'] = -2; // \"length check fail.\"\n        return {\n            data: decoded\n        };\n    }\n\n    // Cache sensor id\n    var sensorEuiLowBytes;\n    var sensorEuiHighBytes;\n\n    // Handle each frame\n    var frameArray = divideBy7Bytes(bytesString);\n    for (var forFrame = 0; forFrame < frameArray.length; forFrame++) {\n        var frame = frameArray[forFrame];\n        // Extract key parameters\n        var channel = strTo10SysNub(frame.substring(0, 2));\n        var dataID = strTo10SysNub(frame.substring(2, 6));\n        var dataValue = frame.substring(6, 14);\n        var realDataValue = isSpecialDataId(dataID) ? ttnDataSpecialFormat(dataID, dataValue) : ttnDataFormat(dataValue);\n        if (checkDataIdIsMeasureUpload(dataID)) {\n            // if telemetry.\n            decoded.messages.push({\n                type: 'report_telemetry',\n                measurementId: dataID,\n                measurementValue: realDataValue\n            });\n        } else if (isSpecialDataId(dataID) || dataID === 5 || dataID === 6) {\n            // if special order, except \"report_sensor_id\".\n            switch (dataID) {\n                case 0x00:\n                    // node version\n                    var versionData = sensorAttrForVersion(realDataValue);\n                    decoded.messages.push({\n                        type: 'upload_version',\n                        hardwareVersion: versionData.ver_hardware,\n                        softwareVersion: versionData.ver_software\n                    });\n                    break;\n                case 1:\n                    // sensor version\n                    break;\n                case 2:\n                    // sensor eui, low bytes\n                    sensorEuiLowBytes = realDataValue;\n                    break;\n                case 3:\n                    // sensor eui, high bytes\n                    sensorEuiHighBytes = realDataValue;\n                    break;\n                case 7:\n                    // battery power && interval\n                    decoded.messages.push({\n                        type: 'upload_battery',\n                        battery: realDataValue.power\n                    }, {\n                        type: 'upload_interval',\n                        interval: parseInt(realDataValue.interval) * 60\n                    });\n                    break;\n                case 9:\n                    decoded.messages.push({\n                        type: 'model_info',\n                        detectionType: realDataValue.detectionType,\n                        modelId: realDataValue.modelId,\n                        modelVer: realDataValue.modelVer\n                    });\n                    break;\n                case 0x120:\n                    // remove sensor\n                    decoded.messages.push({\n                        type: 'report_remove_sensor',\n                        channel: 1\n                    });\n                    break;\n                default:\n                    break;\n            }\n        } else {\n            decoded.messages.push({\n                type: 'unknown_message',\n                dataID: dataID,\n                dataValue: dataValue\n            });\n        }\n    }\n\n    // if the complete id received, as \"upload_sensor_id\"\n    if (sensorEuiHighBytes && sensorEuiLowBytes) {\n        decoded.messages.unshift({\n            type: 'upload_sensor_id',\n            channel: 1,\n            sensorId: (sensorEuiHighBytes + sensorEuiLowBytes).toUpperCase()\n        });\n    }\n    // return\n    return {\n        data: decoded\n    };\n}\nfunction crc16Check(data) {\n    return true;\n}\n\n// util\nfunction bytes2HexString(arrBytes) {\n    var str = '';\n    for (var i = 0; i < arrBytes.length; i++) {\n        var tmp;\n        var num = arrBytes[i];\n        if (num < 0) {\n            tmp = (255 + num + 1).toString(16);\n        } else {\n            tmp = num.toString(16);\n        }\n        if (tmp.length === 1) {\n            tmp = '0' + tmp;\n        }\n        str += tmp;\n    }\n    return str;\n}\n\n// util\nfunction divideBy7Bytes(str) {\n    var frameArray = [];\n    for (var i = 0; i < str.length - 4; i += 14) {\n        var data = str.substring(i, i + 14);\n        frameArray.push(data);\n    }\n    return frameArray;\n}\n\n// util\nfunction littleEndianTransform(data) {\n    var dataArray = [];\n    for (var i = 0; i < data.length; i += 2) {\n        dataArray.push(data.substring(i, i + 2));\n    }\n    dataArray.reverse();\n    return dataArray;\n}\n\n// util\nfunction strTo10SysNub(str) {\n    var arr = littleEndianTransform(str);\n    return parseInt(arr.toString().replace(/,/g, ''), 16);\n}\n\n// util\nfunction checkDataIdIsMeasureUpload(dataId) {\n    return parseInt(dataId) > 4096;\n}\n\n// configurable.\nfunction isSpecialDataId(dataID) {\n    switch (dataID) {\n        case 0:\n        case 1:\n        case 2:\n        case 3:\n        case 4:\n        case 7:\n        case 9:\n        case 0x120:\n            return true;\n        default:\n            return false;\n    }\n}\n\n// configurable\nfunction ttnDataSpecialFormat(dataId, str) {\n    var strReverse = littleEndianTransform(str);\n    if (dataId === 2 || dataId === 3) {\n        return strReverse.join('');\n    }\n\n    // handle unsigned number\n    var str2 = toBinary(strReverse);\n    var dataArray = [];\n    switch (dataId) {\n        case 0: // DATA_BOARD_VERSION\n        case 1:\n            // DATA_SENSOR_VERSION\n            // Using point segmentation\n            for (var k = 0; k < str2.length; k += 16) {\n                var tmp146 = str2.substring(k, k + 16);\n                tmp146 = (parseInt(tmp146.substring(0, 8), 2) || 0) + '.' + (parseInt(tmp146.substring(8, 16), 2) || 0);\n                dataArray.push(tmp146);\n            }\n            return dataArray.join(',');\n        case 4:\n            for (var i = 0; i < str2.length; i += 8) {\n                var item = parseInt(str2.substring(i, i + 8), 2);\n                if (item < 10) {\n                    item = '0' + item.toString();\n                } else {\n                    item = item.toString();\n                }\n                dataArray.push(item);\n            }\n            return dataArray.join('');\n        case 7:\n            // battery && interval\n            return {\n                interval: parseInt(str2.substr(0, 16), 2),\n                power: parseInt(str2.substr(-16, 16), 2)\n            };\n        case 9:\n            var dataValue = {\n                detectionType: parseInt(str2.substring(0, 8), 2),\n                modelId: parseInt(str2.substring(8, 16), 2),\n                modelVer: parseInt(str2.substring(16, 24), 2)\n            };\n            // 01010000\n            return dataValue;\n    }\n}\n\n// util\nfunction ttnDataFormat(str) {\n    var strReverse = littleEndianTransform(str);\n    var str2 = toBinary(strReverse);\n    if (str2.substring(0, 1) === '1') {\n        var arr = str2.split('');\n        var reverseArr = [];\n        for (var forArr = 0; forArr < arr.length; forArr++) {\n            var item = arr[forArr];\n            if (parseInt(item) === 1) {\n                reverseArr.push(0);\n            } else {\n                reverseArr.push(1);\n            }\n        }\n        str2 = parseInt(reverseArr.join(''), 2) + 1;\n        return parseFloat('-' + str2 / 1000);\n    }\n    return parseInt(str2, 2) / 1000;\n}\n\n// util\nfunction sensorAttrForVersion(dataValue) {\n    var dataValueSplitArray = dataValue.split(',');\n    return {\n        ver_hardware: dataValueSplitArray[0],\n        ver_software: dataValueSplitArray[1]\n    };\n}\n\n// util\nfunction toBinary(arr) {\n    var binaryData = [];\n    for (var forArr = 0; forArr < arr.length; forArr++) {\n        var item = arr[forArr];\n        var data = parseInt(item, 16).toString(2);\n        var dataLength = data.length;\n        if (data.length !== 8) {\n            for (var i = 0; i < 8 - dataLength; i++) {\n                data = '0' + data;\n            }\n        }\n        binaryData.push(data);\n    }\n    return binaryData.toString().replace(/,/g, '');\n}",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 20,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 920,
+    "y": 360,
+    "wires": [
+      [
+        "778300800f8f426d"
+      ]
+    ]
+  },
+  {
+    "id": "778300800f8f426d",
+    "type": "function",
+    "z": "dceb8a654a855d45",
+    "name": "Out Put Function",
+    "func": "// 假设msg是输入的JSON对象\nmsg.payload = msg.payload.messages; // 使用提供的messages数组\n\n// 初始化一个对象来保存每个measurementId的默认值\nconst defaultValues = {\n    \"4097\": 0, // Air Temperature\n    \"4098\": 0, // Air Humidity\n    \"4100\": 0, // CO2\n};\n\n// 函数创建每个measurementId的输出消息\nfunction createOutputMessages(measurements) {\n    // 创建一个包含3个消息的数组，每个输出一个\n    let outputMessages = new Array(3).fill(null).map(() => ({ payload: null }));\n\n    // 设置默认值\n    outputMessages[0].payload = defaultValues[\"4108\"]; // 电导率\n    outputMessages[1].payload = defaultValues[\"4102\"]; // 土壤温度\n    outputMessages[2].payload = defaultValues[\"4103\"]; // 土壤湿度\n\n    // 遍历测量值，并将正确的值分配给相应的输出\n    measurements.forEach(measurement => {\n        switch(measurement.measurementId) {\n            case 4097: // Air Temperature\n                outputMessages[0].payload = measurement.measurementValue;\n                break;\n            case 4098: // Air Humidity\n                outputMessages[1].payload = measurement.measurementValue;\n                break;\n            case 4100: // CO2\n                outputMessages[2].payload = measurement.measurementValue;\n                break;\n        }\n    });\n\n    return outputMessages;\n}\n\n// 使用有效载荷值创建输出消息，如果没有则默认为0\nlet outputMessages = createOutputMessages(msg.payload);\n\n// 返回一个消息数组，以发送到相应的输出\nreturn [outputMessages[0], outputMessages[1], outputMessages[2]];\n",
+    "outputs": 3,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "x": 1150,
+    "y": 360,
+    "wires": [
+      [
+        "ac0f87bf7ca22e30"
+      ],
+      [
+        "32397f6d045d4cec"
+      ],
+      [
+        "a2994b8e95a4917b"
+      ]
+    ]
+  },
+  {
+    "id": "ac0f87bf7ca22e30",
+    "type": "switch",
+    "z": "dceb8a654a855d45",
+    "name": "",
+    "property": "Air Temperature",
+    "propertyType": "env",
+    "rules": [
+      {
+        "t": "nnull"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 1430,
+    "y": 240,
+    "wires": [
+      [
+        "ba7d3189e2f4eee0"
+      ]
+    ]
+  },
+  {
+    "id": "32397f6d045d4cec",
+    "type": "switch",
+    "z": "dceb8a654a855d45",
+    "name": "",
+    "property": "Air Humidity",
+    "propertyType": "env",
+    "rules": [
+      {
+        "t": "nnull"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 1430,
+    "y": 280,
+    "wires": [
+      [
+        "c024163517548aad"
+      ]
+    ]
+  },
+  {
+    "id": "ba7d3189e2f4eee0",
+    "type": "change",
+    "z": "dceb8a654a855d45",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "Air Temperature",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1600,
+    "y": 240,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "c024163517548aad",
+    "type": "change",
+    "z": "dceb8a654a855d45",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "Air Humidity",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1600,
+    "y": 280,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "c957ccbb52e1cb6f",
+    "type": "change",
+    "z": "dceb8a654a855d45",
+    "name": "",
+    "rules": [
+      {
+        "t": "set",
+        "p": "topic",
+        "pt": "msg",
+        "to": "CO2",
+        "tot": "str"
+      }
+    ],
+    "action": "",
+    "property": "",
+    "from": "",
+    "to": "",
+    "reg": false,
+    "x": 1600,
+    "y": 320,
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "a2994b8e95a4917b",
+    "type": "switch",
+    "z": "dceb8a654a855d45",
+    "name": "",
+    "property": "CO2",
+    "propertyType": "env",
+    "rules": [
+      {
+        "t": "nnull"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 1,
+    "x": 1430,
+    "y": 320,
+    "wires": [
+      [
+        "c957ccbb52e1cb6f"
+      ]
+    ]
+  },
+  {
+    "id": "ff55020100010001",
+    "type": "mqtt-broker",
+    "name": "Default MQTT Broker",
+    "broker": "host.docker.internal",
+    "port": "1883",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "",
+    "cleansession": true,
+    "autoUnsubscribe": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthRetain": "false",
+    "birthPayload": "",
+    "birthMsg": {},
+    "closeTopic": "",
+    "closeQos": "0",
+    "closeRetain": "false",
+    "closePayload": "",
+    "closeMsg": {},
+    "willTopic": "",
+    "willQos": "0",
+    "willRetain": "false",
+    "willPayload": "",
+    "willMsg": {},
+    "userProps": "",
+    "sessionExpiry": "",
+    "info": "This is the default MQTT Server configuration in the Mission Pack, please do not remove or change it"
+  }
+]
