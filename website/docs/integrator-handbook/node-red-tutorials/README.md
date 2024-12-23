@@ -1,7 +1,9 @@
+---
+sidebar_position: 6
+---
 # Node-RED Tutorials
 
 The mission pack product uses Node-RED as the main interface for integrator.
-
 
 ### Base Guide
 
