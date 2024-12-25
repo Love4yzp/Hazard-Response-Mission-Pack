@@ -11,16 +11,20 @@ function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <Heading as="h1" className="hero__title">
+      <div className={styles.heroBackground} />
+      <div className={styles.heroContent}>
+        <h1 className={styles.heroTitle}>
           {siteConfig.title}
-        </Heading>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
+        </h1>
+        <p className={styles.heroSubtitle}>
+        An open-source AIoT solution designed to efficiently manage and mitigate hazard scenarios.
+        </p>
         <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
+          <Link className={styles.primaryButton} to="/docs/intro">
+            Get Started
+          </Link>
+          <Link className={styles.secondaryButton} to="/docs/features">
+            Examples
           </Link>
         </div>
       </div>
@@ -32,8 +36,7 @@ export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      description="An open-source AIoT solution designed to efficiently manage and mitigate hazard scenarios.">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

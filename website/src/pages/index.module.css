@@ -3,21 +3,111 @@
  * and scoped locally.
  */
 
+ @keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
 .heroBanner {
-  padding: 4rem 0;
-  text-align: center;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  color: white;
+  background-color: #1a1a1a;
   position: relative;
   overflow: hidden;
 }
 
+.heroBackground {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+              url('https://github.com/user-attachments/assets/61f7f9af-0603-4ec1-8a16-d00a3b78a8f9') no-repeat center/cover;
+  z-index: 1;
+}
+
+.heroContent {
+  animation: fadeIn 1s ease-in;
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(45deg, #ffffff, #e0e0e0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.heroSubtitle {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  color: #e0e0e0;
+}
+
+/* Buttons */
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  gap: 1rem;
+}
+
+.primaryButton,
+.secondaryButton {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: transform 0.3s ease;
+}
+
+.primaryButton {
+  color: white;
+  background: #2563eb;
+  border: none;
+}
+
+.secondaryButton {
+  color: #2563eb;
+  border: 2px solid #2563eb;
+  background: transparent;
+}
+
+.primaryButton:hover {
+  background: #1d4ed8;
+  transform: translateY(-2px);
+}
+
+.secondaryButton:hover {
+  background: rgba(37, 99, 235, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Responsive Design */
 @media screen and (max-width: 996px) {
   .heroBanner {
     padding: 2rem;
   }
-}
-
-.buttons {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+  
+  .heroSubtitle {
+    font-size: 1.2rem;
+  }
+  
+  .buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
 }

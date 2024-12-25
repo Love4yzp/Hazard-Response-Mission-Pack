@@ -12,7 +12,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = { // Front info
   title: 'Hazard Response Mission Pack',
   tagline: 'Field Digital Solution for the Worst Scenarios',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/seeedstudio.webp', // TODO: change to seeedstudio logo .ico
 
   // Set the production url of your site here
   url: 'https://seeed-studio.github.io',
@@ -91,7 +91,7 @@ const config = { // Front info
           // {to: '/blog', label: 'Blog', position: 'left'},
           {
             type: 'localeDropdown',
-            position: 'right',
+            position: 'left',
           },
           {
             href: 'https://github.com/Seeed-Studio/Hazard-Response-Mission-Pack',
