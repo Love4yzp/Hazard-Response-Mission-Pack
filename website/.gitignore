@@ -18,3 +18,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+CrowdinTranslations_*.zip
+
+website/.cpu-prof
+
+website/i18n/**/*

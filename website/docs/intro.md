@@ -2,46 +2,24 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Hazard Response Mission Pack
 
-Let's discover **Docusaurus in less than 5 minutes**.
+The Hazard Response Mission Pack is an open-source AIoT solution designed to efficiently manage and mitigate hazard scenarios. This compact system combines a range of technologies, including sensor networks and edge computing, to enable effective remote sensing, data transmission, processing, inference, and analysis.
 
-## Getting Started
+![](https://www.seeedstudio.com/blog/wp-content/uploads/2024/10/0-114993391-Mission-Pack-Early-Access1-768x576.jpg)
 
-Get started by **creating a new site**.
+## Join Our Community
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+This initiative is not a market-ready product but rather a collaborative effort between Seeed and a global community of practitioners committed to using technology to tackle real-world challenges. We welcome contributions from individuals and organizations to explore the limitless potential of _"tech for hazard response"_.
 
-### What you'll need
+- **Join the Mission Pack Beta Test** for early access: [Sign Up Here](https://forms.gle/UXpAJX5wNcLd7CWJA)
+- **Contact Us for Cooperation**: [solution@seeed.cc](mailto:solution@seeed.cc)
+- **Learn More**: [Visit Our Website](https://hazard.seeed.cc/)
 
-- [Node.js](https://nodejs.org/en/download/) version 18.0 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+## Mission Pack Overview
 
-## Generate a new site
+The Hazard Response Mission Pack is a comprehensive solution that leverages cutting-edge technologies to address various hazard scenarios. It includes the following components:
 
-Generate a new Docusaurus site using the **classic template**.
-
-The classic template will automatically be added to your project after you run the command:
-
-```bash
-npm init docusaurus@latest my-website classic
-```
-
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
-
-The command also installs all necessary dependencies you need to run Docusaurus.
-
-## Start your site
-
-Run the development server:
-
-```bash
-cd my-website
-npm run start
-```
-
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
-
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
-
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+- **Sensor Network**: A network of sensors that collect data from the environment, such as temperature, humidity, and air quality.
+- **Edge Computing**: A local computing unit that processes and analyzes the sensor data, enabling real-time decision-making.
+- **Data Transmission**: A reliable communication system that transmits the processed data to a central server or a cloud platform.
