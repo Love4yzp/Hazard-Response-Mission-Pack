@@ -8,6 +8,7 @@ on:
       - 'website/src/**'
       - 'website/blog/**'
       - 'website/docusaurus.config.js'
+      - 'website/crowdin.yaml'
       - '.github/workflows/deploy.yml'
   push:
     branches:
@@ -44,6 +45,16 @@ jobs:
       - name: Install dependencies (npm ci)
         run: |
           npm ci
+        working-directory: website
+
+      # Add Crowdin sync step to download translations before building
+      - name: Sync translations from Crowdin
+        run: |
+          npm run crowdin:sync
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CROWDIN_PROJECT_ID: ${{ secrets.CROWDIN_PROJECT_ID }}
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
         working-directory: website
 
       # Test build website in the website directory
