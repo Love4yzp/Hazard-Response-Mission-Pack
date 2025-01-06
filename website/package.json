@@ -10,9 +10,13 @@
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
     "serve": "docusaurus serve",
+    "write-heading-ids": "docusaurus write-heading-ids",
     "write-translations": "docusaurus write-translations",
     "crowdin": "crowdin",
-    "write-heading-ids": "docusaurus write-heading-ids"
+    "crowdin:sync": "docusaurus write-translations && crowdin upload && crowdin download",
+    "crowdin:upload:website": "crowdin upload sources --config ./crowdin.yaml",
+    "crowdin:download": "crowdin download --config ./crowdin.yaml",
+    "crowdin:download:website": "npm run crowdin:download -- --language zh-CN"
   },
   "dependencies": {
     "@crowdin/cli": "^3.19.4",

@@ -33,7 +33,7 @@ const config = { // Front info
   // may want to replace "en" with "zh-Hans".
   i18n: {
     defaultLocale: 'en',
-    locales: ['en','zh-CN'],
+    locales: ['en','zh'],
   },
 
   presets: [
@@ -42,11 +42,18 @@ const config = { // Front info
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
+          routeBasePath: '/',
           sidebarPath: './sidebars.js',
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: ({locale, versionDocsDirPath, docPath}) => {
+            // Link to Crowdin for French docs
+            if (locale === 'zh') {
+              return `https://crowdin.com/project/mission-pack/zh-CN`;
+            }
+            // Link to GitHub for English docs
+            return `https://github.com/Seeed-Studio/Hazard-Response-Mission-Pack/edit/main/website/${versionDocsDirPath}/${docPath}`;
+          },
         },
         blog: {
           showReadingTime: true,
@@ -57,7 +64,7 @@ const config = { // Front info
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/Seeed-Studio/Hazard-Response-Mission-Pack/tree/main/website/blog/',
           // Useful options to enforce blogging best practices
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
@@ -88,7 +95,7 @@ const config = { // Front info
             position: 'left',
             label: 'Docs',
           },
-          // {to: '/blog', label: 'Blog', position: 'left'},
+          {to: '/blog', label: 'Blog', position: 'left'},
           {
             type: 'localeDropdown',
             position: 'left',
@@ -108,7 +115,7 @@ const config = { // Front info
             items: [
               {
                 label: 'Docs',
-                to: '/docs/intro',
+                to: '/intro',
               },
             ],
           },
@@ -135,7 +142,7 @@ const config = { // Front info
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Mission Pack, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Seeed Studio, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: prismThemes.github,

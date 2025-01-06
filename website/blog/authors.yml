@@ -1,23 +1,31 @@
-yangshun:
-  name: Yangshun Tay
-  title: Front End Engineer @ Facebook
-  url: https://github.com/yangshun
-  image_url: https://github.com/yangshun.png
+PeterPan:
+  name: Peter Pan
+  title: Engineer
+  url: https://www.github.com/peterpanstechland
+  image_url: https://github.com/peterpanstechland.png
   page: true
   socials:
-    x: yangshunz
-    github: yangshun
+    github: peterpanstechland
+    linkedin: shi-pan
 
-slorber:
-  name: Sébastien Lorber
-  title: Docusaurus maintainer
-  url: https://sebastienlorber.com
-  image_url: https://github.com/slorber.png
-  page:
-    # customize the url of the author page at /blog/authors/<permalink>
-    permalink: '/all-sebastien-lorber-articles'
+SpencerYan:
+  name: Spencer Yan
+  title: Application Engineer
+  url: https://www.github.com/love4yzp
+  image_url: https://github.com/love4yzp.png
+  page: 
+    permalink: '/spencer'
   socials:
-    x: sebastienlorber
-    linkedin: sebastienlorber
-    github: slorber
-    newsletter: https://thisweekinreact.com
+    github: love4yzp
+    bluesky: love4yzp.bsky.social
+    x: love4yzp
+    linkedin: spencer2077
+
+EllieCai:
+  name: Ellie Cai
+  title: Brand & Community Manager @ Seeed
+  url: https://www.linkedin.com/in/ying-cai-6b8b191b1
+  image_url: https://github.com/github.png
+  page: true
+  socials:
+    linkedin: ying-cai-6b8b191b1
