@@ -1,0 +1,85 @@
+name: Build Router
+on:
+  pull_request:
+    branches:
+      - docusaurus-v3
+    paths:
+      - 'website/docs/**'
+      - 'website/src/**'
+      - 'website/blog/**'
+      - 'website/docusaurus.config.js'
+      - '.github/workflows/deploy.yml'
+  push:
+    branches:
+      - docusaurus-v3
+    paths:
+      - 'website/docs/**'
+      - 'website/src/**'
+      - 'website/blog/**'
+      - 'website/docusaurus.config.js'
+      - '.github/workflows/deploy.yml'
+      - 'website/static/**'
+      - 'website/sidebars.js'
+
+env:
+  NODE_OPTIONS: --max_old_space_size=4096
+
+jobs:
+  build:
+    name: Build Website
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Set up Node.js without specifying working-directory
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # Install dependencies (npm ci) in the website directory
+      - name: Install dependencies (npm ci)
+        run: |
+          npm ci
+        working-directory: website
+
+      # Test build website in the website directory
+      - name: Test build website
+        run: |
+          npm run build
+        working-directory: website
+
+      # Upload build artifact
+      - name: Upload build artifact
+        if: ${{ github.event_name == 'push' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: github-pages
+          path: website/build
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    if: ${{ github.event_name == 'push' }}
+    permissions:
+      contents: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: website/build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: website/build
