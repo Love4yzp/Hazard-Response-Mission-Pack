@@ -1,15 +1,6 @@
-<!-- TOC -->
-
-- [Hardware Connection](#hardware-connection)
-  - [Unpack and Inspect All Components](#unpack-and-inspect-all-components)
-  - [Set Up LoRaWAN Nodes](#set-up-lorawan-nodes)
-  - [Set Up Meshtastic Nodes](#set-up-meshtastic-nodes)
-  - [Set Up Vision Module](#set-up-vision-module)
-  - [Assemble Basecamp](#assemble-basecamp)
-- [Conclusion](#conclusion)
-- [Troubleshooting](#troubleshooting)
-
-<!-- /TOC -->
+---
+slug: /hardware-connection
+---
 
 ## Hardware Connection
 
@@ -46,7 +37,7 @@ In **Mission Pack V0.2**, the Meshtastic nodes are powered by the [**Tracker T10
 
 To get started with the **T1000-E Tracker**, you need to ensure it is fully charged. Unlike the LoRaWAN version, which can last nearly two months on a single charge, the T1000-E requires regular charging due to its enhanced functionality and sensor capabilities. Ensure it is adequately powered before deployment to maintain consistent tracking performance.
 
-Next step: [Configure Meshtastic network](./software-setup.md#meshtastic)
+Next step: [Configure Meshtastic network](/software-setup#meshtastic)
 
 ### Set Up Vision Module
 

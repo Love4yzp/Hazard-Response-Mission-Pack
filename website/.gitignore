@@ -21,6 +21,6 @@ yarn-error.log*
 
 CrowdinTranslations_*.zip
 
-website/.cpu-prof
+.cpu-prof
 
-website/i18n/**/*
+i18n/**/*

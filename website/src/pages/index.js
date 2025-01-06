@@ -19,10 +19,10 @@ function HomepageHeader() {
         An open-source AIoT solution designed to efficiently manage and mitigate hazard scenarios.
         </p>
         <div className={styles.buttons}>
-          <Link className={styles.primaryButton} to="/docs/intro">
+          <Link className={styles.primaryButton} to="/intro">
             Get Started
           </Link>
-          <Link className={styles.secondaryButton} to="/docs/features">
+          <Link className={styles.secondaryButton} to="https://github.com/Seeed-Studio/Smarter-Spaces-Solutions">
             Examples
           </Link>
         </div>

@@ -4,6 +4,19 @@ The **Hazard Response Mission Pack** is a versatile solution specifically design
 
 <!-- ![the pack](/assets/img/case.jpg) -->
 
+## Getting Started
+
+<!-- ![the pack](/assets/img/v2-system-diagram.png) -->
+
+To begin using the **Mission Pack**, follow these steps:
+
+1. **Understand the Mission Pack**: Start by reading the [Jumpstart Usage](/jumpstart-usage) to familiarize yourself with its purpose and capabilities.
+2. **Hardware Connection**: Learn about the necessary hardware and how to set it up by reading [Hardware Connection](/hardware-connection).
+3. **Software Setup**: Understand how to set up the software and configure workflows by reviewing the [Software Setup](/software-setup).
+4. **Integrate More Devices**: Expand your system’s capabilities by learning how to add additional devices with the guide on [Integrating More Devices](/integrate-more-devices).
+
+By following these steps, you will gain a thorough understanding of the **Mission Pack**, learn how to connect and configure the hardware, set up the software, and expand the system to meet your specific needs.
+
 ## Hardware - Built for Specific Scenarios
 
 The **Mission Pack** includes a carefully selected array of hardware components, each optimized for specific hazard scenarios. These devices are designed to deliver optimal performance and reliability in critical situations:
@@ -23,16 +36,3 @@ Additionally, the pack includes an **HDMI 10" screen** and **keyboard**, offerin
 The **Mission Pack** is equipped with a powerful software environment, centered around **Node-RED**, an open-source visual programming tool that simplifies the integration and automation of IoT devices. Node-RED's intuitive drag-and-drop interface allows users to easily create workflows for data processing, alerts, and system control, making it accessible to both technical and non-technical users.
 
 To further streamline the user experience, the software environment is packaged with **Docker containers** that are ready to deploy, ensuring that all necessary dependencies and configurations are pre-installed. This setup reduces the time and effort required to get the system operational, allowing users to focus on customizing and expanding their hazard response capabilities.
-
-## Getting Started
-
-<!-- ![the pack](/assets/img/v2-system-diagram.png) -->
-
-To begin using the **Mission Pack**, follow these steps:
-
-1. **Understand the Mission Pack**: Start by reading the [Jumpstart Usage](/docs/jumpstart-usage/README.md) to familiarize yourself with its purpose and capabilities.
-2. **Hardware Connection**: Learn about the necessary hardware and how to set it up by reading [Hardware Connection](./hardware-connection.md).
-3. **Software Setup**: Understand how to set up the software and configure workflows by reviewing the [Software Setup](./software-setup.md).
-4. **Integrate More Devices**: Expand your system’s capabilities by learning how to add additional devices with the guide on [Integrating More Devices](./integrate-more-devices.md).
-
-By following these steps, you will gain a thorough understanding of the **Mission Pack**, learn how to connect and configure the hardware, set up the software, and expand the system to meet your specific needs.
